@@ -1,6 +1,8 @@
-<nav class="navbar">
+<nav class="navigation">
     <div class="container">
-        <img src="/static/assets/ra_logo.png" alt="RAC logo" />
+        <a href="/">
+            <img src="/static/assets/ra_logo.png" alt="RAC logo" />
+        </a>
         <div class="links">
             <a href="/">Home</a>
             <a href="/studenten">Studenten</a>
@@ -8,11 +10,12 @@
             <a href="/lessen">Lessen</a>
             <a href="/rapportage">Rapportage</a>
         </div>
-    </div>
-    <div class="account">
-        <span class="user">
-            <span class="material-icons">person</span>
-            <span class="loggedInUser"></span>
-        </span>
+        <div class="account">
+            <div class="user">
+                <span class="material-icons">person</span>
+                <span class="loggedInUser"></span>
+            </div>
+            <a href="/logout">Uitloggen</a>
+        </div>
     </div>
 </nav>
