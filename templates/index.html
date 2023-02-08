@@ -1,36 +1,44 @@
 {% include "layout.html" %}
 {% include "navigation.html" %}
-<div class="user">
-    <li class="username" style="color: black">{{ name }}</li>
-    <li class="logoutLi"><a href="/logout" style="color: black"><i class="bi bi-box-arrow-right logout"></i>Logout</a></li>
-    <div class="grid">
-        <div class="item">
-            <span class="material-icons">person</span>
-            <h2>Studenten</h2>
-            <div class="bttn">
-                <span class="material-icons">keyboard_arrow_right</span>
-            </div>
+<div class="container">
+    <div class="user">
+        <div class="grid">
+            <a href="/studenten" class="item">
+                <span class="material-icons tileIcon">person</span>
+                <div class="flex">
+                    <h2>Studenten</h2>
+                    <div class="bttn">
+                        <span class="material-icons">keyboard_arrow_right</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/docenten" class="item">
+                <span class="fa-solid fa-person-chalkboard tileIcon"></span>
+                <div class="flex">
+                    <h2>Docenten</h2>
+                    <div class="bttn">
+                        <span class="material-icons">keyboard_arrow_right</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/lessen" class="item">
+                <span class="material-icons tileIcon">school</span>
+                <div class="flex">
+                    <h2>Lessen</h2>
+                    <div class="bttn">
+                        <span class="material-icons">keyboard_arrow_right</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/rapportage" class="item">
+                <span class="material-icons tileIcon">insights</span>
+                <div class="flex">
+                    <h2>Rapportage</h2>
+                    <div class="bttn">
+                        <span class="material-icons">keyboard_arrow_right</span>
+                    </div>
+                </div>
+            </a>
         </div>
-        <div class="item">
-            <span class="fa-solid fa-person-chalkboard"></span>
-            <h2>Docenten</h2>
-            <div class="bttn">
-                <span class="material-icons">keyboard_arrow_right</span>
-            </div>
-        </div>
-        <div class="item">
-            <span class="material-icons">school</span>
-            <h2>Lessen</h2>
-            <div class="bttn">
-                <span class="material-icons">keyboard_arrow_right</span>
-            </div>
-        </div>
-        <div class="item">
-            <span class="material-icons">monitoring</span>
-            <h2>Rapportage</h2>
-            <div class="bttn">
-                <span class="material-icons">keyboard_arrow_right</span>
-            </div>
-        </div>
-    </div>
+    </div>    
 </div>

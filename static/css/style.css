@@ -1,11 +1,14 @@
 :root {
     --black: #000;
-    --white: #fff
+    --white: #fff;
+    --racBlue: #3CAAD7;
 }
 
 .container {
     width: 900px;
     margin: 0 auto;
+    padding: unset;
+    padding-top: 120px;
 }
 
 .navigation {
@@ -17,6 +20,7 @@
 }
 
 .navigation .container {
+    padding-top: unset;
     height: 100%;
     display: flex;
     align-items: center;
@@ -40,4 +44,52 @@
 
 .navigation .material-icons {
     color: var(--white);
+}
+
+.navigation .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--white);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    gap: 20px;
+}
+
+.grid .item {
+    background-color: var(--racBlue);
+    color: var(--white);
+    padding: 20px;
+}
+
+.grid .item:hover {
+    text-decoration: none;
+}
+
+.grid .item .flex {
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+
+.grid .bttn {
+    background-color: #FECE0A;
+    padding: 10px;
+}
+
+.grid .bttn .material-icons {
+    margin: auto 0;
+    display: block;
+    color: var(--black);
+}
+
+.tileIcon {
+    font-size: 50px;
+}
+
+.flex {
+    display: flex;
 }
