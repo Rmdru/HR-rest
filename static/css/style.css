@@ -63,10 +63,13 @@
     background-color: var(--racBlue);
     color: var(--white);
     padding: 20px;
+    transition: 0.3s;
 }
 
 .grid .item:hover {
     text-decoration: none;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 4px 10px rgb(0 0 0 / 80%);
 }
 
 .grid .item .flex {
