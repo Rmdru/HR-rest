@@ -64,6 +64,7 @@
     color: var(--white);
     padding: 20px;
     transition: 0.3s;
+    border-radius: 15px;
 }
 
 .grid .item:hover {
@@ -81,6 +82,7 @@
 .grid .bttn {
     background-color: #FECE0A;
     padding: 10px;
+    border-radius: 5px;
 }
 
 .grid .bttn .material-icons {
