@@ -16,6 +16,7 @@ app = Flask(__name__)
 
 # import declared routes
 import routes.authRoutes
+import routes.lessons_routes
 
 # Secret key for the session
 app.secret_key = '1335eb3948fb7b64a029aa29'
