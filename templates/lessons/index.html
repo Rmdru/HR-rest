@@ -1,0 +1,63 @@
+{% include "layout.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="container">
+  <div class="lessons">
+    <div class="top-content">
+      <style>
+      .top-content {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 30px 0 20px 0;
+                    }
+      .button {
+              background-color: #3CAAD7;
+              border: none;
+              color: #fff;
+              padding: 20px 36px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 24px;
+              margin: 4px 2px;
+              cursor: pointer;
+              border-radius: 12px;
+              }
+      </style>
+      <h1>Lessen</h1>
+      <a href="#" class="button">Les toevoegen</a>
+    </div>
+      <table class="table">
+        <thead style="background-color: black; color: #fff;">
+          <tr>
+            <th scope="Name">Naam</th>
+            <th scope="Date">Datum</th>
+            <th scope="Starttime">Begintijd</th>
+            <th scope="Endtime">Eindtijd</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Professionele Vorming</td>
+            <td>6 feb 2023</td>
+            <td>09:30</td>
+            <td>11:20</td>
+          </tr>
+          <tr>
+            <td>Werkplaats 3</td>
+            <td>8 feb 2023</td>
+            <td>09:30</td>
+            <td>16:30</td>
+          </tr>
+          <tr>
+            <td>Databases</td>
+            <td>7 feb 2023</td>
+            <td>08:30</td>
+            <td>10:00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
