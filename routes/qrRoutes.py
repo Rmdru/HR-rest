@@ -4,9 +4,9 @@ from flask_qrcode import QRcode
 qrcode = QRcode(app)
 
 
-@app.route("/qr")
-def qr():
-    return render_template("qrcode.html")
+@app.route("/check-in/<id>")
+def checkIn(id):
+    return render_template("qrcode.html", id=id)
 
 
 @app.route("/qrcode", methods=["GET"])
