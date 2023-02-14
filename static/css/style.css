@@ -1,17 +1,32 @@
 :root {
     --black: #000;
     --white: #fff;
+    --racRed: #D30E4C;
     --racBlue: #3CAAD7;
+    --textColor: #272727;
 }
 
 .container {
-    width: 900px;
+    position: relative;
+    top: 90px;
+}
+
+.index .container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: unset;
+    padding-top: 120px;
+}
+
+.navigation .nav_container {
+    width: 1200px;
     margin: 0 auto;
     padding: unset;
     padding-top: 120px;
 }
 
 .navigation {
+    top: 0;
     background-color: var(--black);
     position: fixed;
     width: 100%;
@@ -19,7 +34,7 @@
     z-index: 10;
 }
 
-.navigation .container {
+.navigation .nav_container {
     padding-top: unset;
     height: 100%;
     display: flex;
@@ -97,4 +112,37 @@
 
 .flex {
     display: flex;
+}
+
+
+.button {
+    background-color: var(--racBlue);
+    border: none;
+    color: var(--white);
+    padding: 6px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 21px;
+    margin: 4px 2px;
+    border-radius: 6px;
+}
+
+.button:hover {
+    text-decoration: none;
+    color: var(--white);
+}
+
+.red {
+    color: var(--racRed) !important;
+}
+
+.blue {
+    color: var(--racBlue) !important;
+}
+
+.lessons_index .top-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 45px 0 20px 0;
 }
