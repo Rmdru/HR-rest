@@ -114,7 +114,6 @@
     display: flex;
 }
 
-
 .button {
     background-color: var(--racBlue);
     border: none;
@@ -145,4 +144,9 @@
     justify-content: space-between;
     align-items: center;
     margin: 45px 0 20px 0;
+}
+
+.qrcode{
+    padding: 200px 0;
+    text-align: center;
 }
