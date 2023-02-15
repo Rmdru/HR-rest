@@ -1,8 +1,8 @@
-from __main__ import SQLAlchemy, db
+from __main__ import SQLAlchemy, db, app
 
 # Define the Lesson model
 class Lesson(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(255), primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     date = db.Column(db.String(200), nullable=False)
     start_time = db.Column(db.String(200), nullable=False)

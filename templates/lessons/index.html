@@ -15,6 +15,7 @@
                 <th scope="Date">Datum</th>
                 <th scope="Starttime">Begintijd</th>
                 <th scope="Endtime">Eindtijd</th>
+                <th scope="Endtime">QR</th>
                 <th scope="Delete">Delete</th>
                 <th scope="Change">Wijzig</th>
             </tr>
@@ -26,6 +27,7 @@
                 <td>{{ lesson.date }}</td>
                 <td>{{ lesson.start_time }}</td>
                 <td>{{ lesson.end_time }}</td>
+                <td><a href="/check-in/{{ lesson.id }}">QR-code</a></td>
                 <td><a href="#" class="red" data-id="{{ lesson.id }}" id="btnDelete">Verwijderen</a></td>
                 <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal" data-target="#lessonModal">Wijzigen</a></td>
             </tr>
