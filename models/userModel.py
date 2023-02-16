@@ -1,13 +1,13 @@
-from __main__ import SQLAlchemy, db, app
+from __main__ import SQLAlchemy, db, app, UserMixin
 
 # Define the Lesson model
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.String(255), primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.Integer, nullable=False)
-    student_number = db.Column(db.Integer, nullable=False)
+    studentNumber = db.Column(db.Integer, nullable=False)
 
     def to_dict(self):
         return {
@@ -16,5 +16,5 @@ class User(db.Model):
             'email': self.email,
             'password': self.password,
             'role': self.role,
-            'student_number': self.student_number
+            'student_number': self.studentNumber
         }

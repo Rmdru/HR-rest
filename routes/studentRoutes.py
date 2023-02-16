@@ -4,7 +4,7 @@ from controllers.studentController import StudentController
 
 def setup_student_routes(app):
     # This route will redirect to the students index route
-    @app.route("/student_overzicht")
+    @app.route("/studenten_overzicht")
     def students_index():
         students = StudentController.get_all_students()
         return render_template(

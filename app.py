@@ -26,6 +26,8 @@ db.init_app(app)
 import routes.authRoutes
 import routes.lessonRoutes
 import routes.qrRoutes
+import routes.studentRoutes
+routes.studentRoutes.setup_student_routes(app)
 routes.lessonRoutes.setup_lesson_routes(app)
 routes.authRoutes.setup_auth_routes(app)
 

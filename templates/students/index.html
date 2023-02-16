@@ -1,5 +1,5 @@
 {% include "layout.html" %}
-{% include "/students/student_model.html" %}
+{% include "/students/student_modal.html" %}
 {% block content %}
 {% include "navigation.html" %}
 <div class="container">
@@ -12,10 +12,9 @@
             <thead style="background-color: black; color: #fff;">
             <tr>
                 <th scope="Name">Naam</th>
-                <th scope="Date">Datum</th>
-                <th scope="Starttime">Begintijd</th>
-                <th scope="Endtime">Eindtijd</th>
-                <th scope="Delete">Delete</th>
+                <th scope="Date">E-mailadres</th>
+                <th scope="Starttime">Studentnummer</th>
+                <th scope="Delete">Verwijderen</th>
                 <th scope="Change">Wijzig</th>
             </tr>
             </thead>
@@ -23,11 +22,10 @@
             {% for student in students %}
             <tr>
                 <td>{{ student.name }}</td>
-                <td>{{ student.date }}</td>
-                <td>{{ student.start_time }}</td>
-                <td>{{ student.end_time }}</td>
-                <td><a href="#" class="red" data-id="{{ lesson.id }}" id="btnDelete">Verwijderen</a></td>
-                <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal" data-target="#lessonModal">Wijzigen</a></td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.student_number }}</td>
+                <td><a href="#" class="red" data-id="{{ student.id }}" id="btnDelete">Verwijderen</a></td>
+                <td><a href="#" class="blue" data-id="{{ student.id }}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>
             </tr>
             {% endfor %}
             </tbody>

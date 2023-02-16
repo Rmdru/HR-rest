@@ -1,20 +1,12 @@
 from __main__ import app, render_template, request, \
     SQLAlchemy, os, UserMixin, flash, redirect, url_for, \
     generate_password_hash, check_password_hash, login_user, logout_user, LoginManager, login_required, db
-
+from models.userModel import User
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 login_manager.login_message = "De gebruiker moet ingelogd zijn om deze pagina te bekijken"
-
-# Database model for the user
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
-    name = db.Column(db.String(1000))
-
 
 def setup_auth_routes(app):
 
