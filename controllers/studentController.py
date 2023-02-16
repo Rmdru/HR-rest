@@ -6,7 +6,7 @@ class StudentController():
 
     @staticmethod
     def get_all_students():
-        students = User.query.all()
+        students = User.query.filter_by(role=1)
         students_dict = [student.to_dict() for student in students]
         return students_dict
 
