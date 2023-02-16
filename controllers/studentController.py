@@ -3,7 +3,6 @@ from models.userModel import User
 
 
 class StudentController():
-    __table_args__ = {'extend_existing': True}
 
     @staticmethod
     def get_all_students():
@@ -22,11 +21,10 @@ class StudentController():
     def create_student():
         name = request.form.get('name')
         email = request.form.get('email')
-        password = request.form.get('password')
         student_number = int(request.form.get('student_number'))
         student_id = str(uuid.uuid4())
 
-        new_student = User(id=student_id, name=name, email=email, password=password, studentNumber=student_number, role=1)
+        new_student = User(id=student_id, name=name, email=email, studentNumber=student_number, role=1)
 
         db.session.add(new_student)
         db.session.commit()
