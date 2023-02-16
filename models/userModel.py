@@ -2,7 +2,7 @@ from __main__ import SQLAlchemy, db, app, UserMixin
 
 # Define the Lesson model
 class User(UserMixin, db.Model):
-    id = db.Column(db.String(255), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(255), nullable=False)
