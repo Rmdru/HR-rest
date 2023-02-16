@@ -9,7 +9,7 @@ export default class Lesson {
 
     deleteFunction() {
         // select all elements with the id "btnDelete"
-        const deleteBtns = document.querySelectorAll("#btnDelete")
+        const deleteBtns = document.querySelectorAll(".lessons #btnDelete")
 
         // loop through each delete button
         deleteBtns.forEach((item) => {
@@ -32,7 +32,7 @@ export default class Lesson {
 
     getLessonInfo() {
         // Select all edit modal buttons
-        const editModalBtns = document.querySelectorAll("#btnEdit");
+        const editModalBtns = document.querySelectorAll(".lessons #btnEdit");
 
         // Loop through each button
         editModalBtns.forEach((item) => {
@@ -71,7 +71,7 @@ export default class Lesson {
     }
 
     removeLessonInfo() {
-        const creatBtn = document.querySelector('#btnCreate')
+        const creatBtn = document.querySelector('.lessons #btnCreate')
 
         if (creatBtn != null) {
             creatBtn.addEventListener('click', () => {

@@ -9,7 +9,7 @@ export default class Student {
 
     deleteFunction() {
         // select all elements with the id "btnDelete"
-        const deleteBtns = document.querySelectorAll("#btnDelete")
+        const deleteBtns = document.querySelectorAll(".students #btnDelete")
 
         // loop through each delete button
         deleteBtns.forEach((item) => {
@@ -32,14 +32,13 @@ export default class Student {
 
     getStudentInfo() {
         // Select all edit modal buttons
-        const editModalBtns = document.querySelectorAll("#btnEdit");
+        const editModalBtns = document.querySelectorAll(".students #btnEdit");
 
         // Loop through each button
         editModalBtns.forEach((item) => {
             // Add click event listener to each button
             item.addEventListener("click", () => {
                 const rowId = item.getAttribute("data-id");
-                console.log(rowId)
                 // Make a GET request to retrieve the data for the selected student
                 axios.get("/students/" + rowId).then((response) => {
                     const student = response.data.student;
@@ -57,9 +56,9 @@ export default class Student {
                         const studentNumberInput = modal.querySelector("#inputStudentNumber");
 
                         // Set the value of the input elements to the values from the response data
-                        nameInput.value = '';
-                        emailInput.value = '';
-                        studentNumberInput.value = '';
+                        nameInput.value = student.name;
+                        emailInput.value = student.email;
+                        studentNumberInput.value = student.student_number;
                     } else {
                         console.error("No data found in the response");
                     }
@@ -69,7 +68,7 @@ export default class Student {
     }
 
     removeStudentInfo() {
-        const creatBtn = document.querySelector('#btnCreate')
+        const creatBtn = document.querySelector('.lessons #btnCreate')
 
         if (creatBtn != null) {
             creatBtn.addEventListener('click', () => {
