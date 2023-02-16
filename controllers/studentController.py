@@ -15,18 +15,17 @@ class StudentController():
     def show_student(id):
         student = User.query.get(id)
         if not student:
-            return jsonify({'message': 'student not found'}), 404
+            return jsonify({'message': 'Student not found'}), 404
         return jsonify({'student': student.to_dict()}), 200
 
     @staticmethod
     def create_student():
         name = request.form.get('name')
-        date = request.form.get('date')
-        start_time = request.form.get('start_time')
-        end_time = request.form.get('end_time')
-        leson_id = str(uuid.uuid4())
+        email = request.form.get('email')
+        student_number = request.form.get('student_number')
+        student_id = str(uuid.uuid4())
 
-        new_student = User(id=leson_id, name=name, date=date, start_time=start_time, end_time=end_time)
+        new_student = User(id=student_id, name=name, email=email, studentNumber=student_number, role=1)
 
         db.session.add(new_student)
         db.session.commit()
@@ -37,17 +36,15 @@ class StudentController():
     def update_student(id):
         student = User.query.get(id)
         if not student:
-            return jsonify({'message': 'student not found'}), 404
+            return jsonify({'message': 'Student not found'}), 404
 
         name = request.form.get('name')
-        date = request.form.get('date')
-        start_time = request.form.get('start_time')
-        end_time = request.form.get('end_time')
+        email = request.form.get('email')
+        student_number = request.form.get('student_number')
 
         student.name = name
-        student.date = date
-        student.start_time = start_time
-        student.end_time = end_time
+        student.email = email
+        student.student_number = student_number
 
         db.session.commit()
 
@@ -57,7 +54,7 @@ class StudentController():
     def delete_student(id):
         student = User.query.get(id)
         if not student:
-            return jsonify({'message': 'student not found'}), 404
+            return jsonify({'message': 'Student not found'}), 404
         db.session.delete(student)
         db.session.commit()
         return '', 204
