@@ -27,7 +27,7 @@
                 <td>{{ student.student_number }}</td>
                 <td><a href="#" class="red" data-id="{{ student.id }}" id="btnDelete">Verwijderen</a></td>
                 <td><a href="#" class="blue" data-id="{{ student.id }}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>
-                <td><a href="/student/{{ student.id }}" class="blue">Aanwezigheid</a></td>
+                <td><a href="/student/{{ student.id }}/aanwezigheid" class="blue">Aanwezigheid</a></td>
             </tr>
             {% endfor %}
             </tbody>
