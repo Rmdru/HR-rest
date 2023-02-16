@@ -1,4 +1,4 @@
-from __main__ import jsonify, db, request, render_template, redirect, url_for
+from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid
 from models.lesson import Lesson
 
 
@@ -23,8 +23,9 @@ class LessonController():
         date = request.form.get('date')
         start_time = request.form.get('start_time')
         end_time = request.form.get('end_time')
+        leson_id = str(uuid.uuid4())
 
-        new_lesson = Lesson(name=name, date=date, start_time=start_time, end_time=end_time)
+        new_lesson = Lesson(id=leson_id, name=name, date=date, start_time=start_time, end_time=end_time)
 
         db.session.add(new_lesson)
         db.session.commit()
