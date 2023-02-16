@@ -1,0 +1,39 @@
+{% include "layout.html" %}
+{% include "/students/student_model.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="container">
+    <div class="lessons_index">
+        <div class="top-content">
+            <h1>Studenten</h1>
+            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModal">Les toevoegen</a>
+        </div>
+        <table class="table">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Name">Naam</th>
+                <th scope="Date">Datum</th>
+                <th scope="Starttime">Begintijd</th>
+                <th scope="Endtime">Eindtijd</th>
+                <th scope="Delete">Delete</th>
+                <th scope="Change">Wijzig</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.date }}</td>
+                <td>{{ student.start_time }}</td>
+                <td>{{ student.end_time }}</td>
+                <td><a href="#" class="red" data-id="{{ lesson.id }}" id="btnDelete">Verwijderen</a></td>
+                <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal" data-target="#lessonModal">Wijzigen</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+{% endblock %}
