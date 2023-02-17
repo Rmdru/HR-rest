@@ -18,7 +18,7 @@ export default class Teacher {
                 const rowId = item.getAttribute('data-id')
 
                 // make a DELETE request to the server to delete the specified teacher
-                axios.delete('/teachers/' + rowId).then((response) => {
+                axios.delete('/teacher/' + rowId).then((response) => {
                     // reload the page after the teacher is successfully deleted
                     location.reload();
                 }, (error) => {
@@ -53,12 +53,12 @@ export default class Teacher {
                         // Get the form input elements
                         const nameInput = modal.querySelector("#inputName");
                         const emailInput = modal.querySelector("#inputEmail");
-                        const classInput = modal.querySelector("#inputDate");
+                        // const classInput = modal.querySelector("#inputClass");
 
                         // Set the value of the input elements to the values from the response data
                         nameInput.value = teacher.name;
                         emailInput.value = teacher.email;
-                        classInput.value = teacher.class;
+                        // classInput.value = teacher.class;
                     } else {
                         console.error("No data found in the response");
                     }
@@ -79,13 +79,13 @@ export default class Teacher {
                 // Get the form input elements
                 const nameInput = modal.querySelector("#inputName");
                 const emailInput = modal.querySelector("#inputEmail");
-                const classInput = modal.querySelector("#inputClass");
+                // const classInput = modal.querySelector("#inputClass");
 
 
                 // Set the value of the input elements to the values from the response data
                 nameInput.value = '';
                 emailInput.value = '';
-                classInput.value = '';
+                // classInput.value = '';
             })
         }
     }
