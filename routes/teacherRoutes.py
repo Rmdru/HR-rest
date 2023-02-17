@@ -5,7 +5,7 @@ from controllers.teacherController import TeacherController
 def setup_teacher_routes(app):
     # This route will redirect to the teachers index route
     @app.route("/docenten_overzicht")
-    def teachers_index(teachers=None):
+    def teachers_index():
         teachers = TeacherController.get_all_teachers()
         return render_template(
             "teachers/index.html", teachers=teachers
