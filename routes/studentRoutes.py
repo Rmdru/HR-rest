@@ -1,5 +1,6 @@
 from flask import render_template, jsonify
 from controllers.studentController import StudentController
+from models.attendanceModel import Attendance
 
 
 def setup_student_routes(app):
@@ -26,3 +27,10 @@ def setup_student_routes(app):
     @app.route('/students/<id>', methods=['DELETE'])
     def delete_student(id):
         return StudentController.delete_student(id)
+    
+    @app.route('/students/<id>/aanwezigheid', methods=['GET'])
+    def attendance_student(id):
+        attendances = Attendance.query.filter(Attendance.student_id == id).all()
+        attendance_dicts = [attendance.to_dict() for attendance in attendances]
+
+        return render_template("/students/attendance/index.html", id=id, attendances=attendance_dicts)
