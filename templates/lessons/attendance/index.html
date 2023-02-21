@@ -2,8 +2,9 @@
 {% include "/lessons/lesson_model.html" %}
 {% block content %}
 {% include "navigation.html" %}
+
 <div class="container">
-    <div class="lessons_index">
+    <div class="attendance_index" data-id="{{ id }}">
         <div class="top-content">
             <h1>Aanwezigheid</h1>
             <a href="/lessen_overzicht" class="button">Naar lessen</a>
@@ -25,13 +26,12 @@
                 <td>{{ attendance.checkin_time.strftime('%H:%M:%S') }}</td>
                 <td>{{ attendance.mood }}</td>
                 <td>{{ attendance.question_answer }}</td>
-                <td><a href="" class="red">Verwijderen</a></td>
+                <td><a href="" data-id="{{ attendance.id }}" id="btnDelete" class="red">Verwijderen</a></td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
-
-
     </div>
 </div>
+
 {% endblock %}
