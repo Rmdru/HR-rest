@@ -3,6 +3,8 @@ import os.path, uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
+from flask_socketio import SocketIO, emit
+
 
 LISTEN_ALL = "0.0.0.0"
 FLASK_IP = LISTEN_ALL
@@ -26,13 +28,13 @@ db.init_app(app)
 # import declared routes
 import routes.authRoutes
 import routes.lessonRoutes
-import routes.qrRoutes
+import routes.attendanceRoutes
 import routes.teacherRoutes
 import routes.studentRoutes
 routes.studentRoutes.setup_student_routes(app)
 import routes.classRoutes
 routes.lessonRoutes.setup_lesson_routes(app)
-routes.qrRoutes.setup_qr_routes(app)
+routes.attendanceRoutes.setup_qr_routes(app)
 routes.authRoutes.setup_auth_routes(app)
 routes.teacherRoutes.setup_teacher_routes(app)
 routes.classRoutes.setup_class_routes(app)

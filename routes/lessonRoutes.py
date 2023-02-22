@@ -1,7 +1,5 @@
-from flask import render_template, jsonify
+from __main__ import render_template
 from controllers.lessonController import LessonController
-from models.attendanceModel import Attendance
-
 
 def setup_lesson_routes(app):
     # This route will redirect to the lessons index route
@@ -26,12 +24,8 @@ def setup_lesson_routes(app):
 
     @app.route('/lessons/<id>', methods=['DELETE'])
     def delete_lesson(id):
-        print(id)
         return LessonController.delete_lesson(id)
 
-    @app.route('/lesson/<id>/aanwezigheid', methods=['GET'])
-    def attendance_lesson(id):
-        attendances = Attendance.query.filter(Attendance.lesson_id == id).all()
-        attendance_dicts = [attendance.to_dict() for attendance in attendances]
 
-        return render_template("/lessons/attendance/index.html", id=id, attendances=attendance_dicts)
+
+
