@@ -26,8 +26,10 @@ db.init_app(app)
 import routes.authRoutes
 import routes.lessonRoutes
 import routes.qrRoutes
+import routes.classRoutes
 routes.lessonRoutes.setup_lesson_routes(app)
 routes.authRoutes.setup_auth_routes(app)
+routes.classRoutes.setup_class_routes(app)
 
 
 # Secret key for the session
