@@ -56,7 +56,7 @@ export default class Attendance {
     getAttendance() {
         if (document.querySelector("#attendance") != null) {
             var socket = io.connect();
-            var uuid = document.querySelector(".attendance_index").getAttribute("data-id");
+            var uuid = document.querySelector("#attendance").getAttribute("data-id");
 
             socket.on('attendance', function (data) {
                 if (data.uuid === uuid) {

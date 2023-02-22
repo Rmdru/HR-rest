@@ -39,6 +39,10 @@ routes.authRoutes.setup_auth_routes(app)
 routes.teacherRoutes.setup_teacher_routes(app)
 routes.classRoutes.setup_class_routes(app)
 
+import models.userModel
+with app.app_context():
+    db.create_all()
+
 # Secret key for the session
 app.secret_key = '1335eb3948fb7b64a029aa29'
 
