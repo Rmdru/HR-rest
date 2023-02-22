@@ -2,14 +2,17 @@ from __main__ import app, render_template, request, \
     SQLAlchemy, os, UserMixin, flash, redirect, url_for, \
     generate_password_hash, check_password_hash, login_user, logout_user, LoginManager, login_required, db
 from models.userModel import User
+from models.userModel import User
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 login_manager.login_message = "De gebruiker moet ingelogd zijn om deze pagina te bekijken"
 
-def setup_auth_routes(app):
 
+# Database model for the user
+
+def setup_auth_routes(app):
     # This route will display the login view
     @app.route('/login')
     def login():
