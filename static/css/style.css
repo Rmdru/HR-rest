@@ -14,7 +14,7 @@
 .index .container {
     margin: 0 auto;
     padding: unset;
-    padding-top: 120px;
+    padding: 50px 0;
 }
 
 .navigation .nav_container {
