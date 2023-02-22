@@ -2,4 +2,5 @@ Flask
 flask_sqlalchemy
 flask_login
 flask_qrcode
+flask_socketio
 pi

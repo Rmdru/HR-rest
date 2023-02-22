@@ -45,7 +45,7 @@ def setup_auth_routes(app):
             flash('Vul alle velden in')
             return redirect(url_for('signup'))
 
-        new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+        new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), role=0, studentNumber=None)
 
         db.session.add(new_user)
         db.session.commit()

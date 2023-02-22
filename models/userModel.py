@@ -7,7 +7,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.Integer, nullable=False)
-    studentNumber = db.Column(db.Integer, nullable=False)
+    studentNumber = db.Column(db.Integer, nullable=True)
 
     def to_dict(self):
         return {
