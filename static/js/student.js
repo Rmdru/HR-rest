@@ -2,9 +2,8 @@ export default class Student {
     constructor() {
         this.deleteFunction();
         this.getStudentInfo();
-        this.removeStudentInfo()
-        this.initializeDatePicker();
-        this.removeStudentInfo()
+        this.removeStudentInfo();
+        this.removeStudentInfo();
     }
 
     deleteFunction() {
@@ -93,23 +92,5 @@ export default class Student {
             }
         }
     }
-
-    initializeDatePicker() {
-        const dateInputs = document.querySelectorAll('.datepicker');
-
-        if (dateInputs != null) {
-            dateInputs.forEach((input) => {
-                const picker = new Pikaday({
-                    field: input,
-                    format: 'DD/MM/YYYY',
-                    minDate: new Date(),
-                    onSelect: function () {
-                        console.log(input.value = this.toString());
-                    }
-                });
-            });
-        }
-    }
-
 }
 
