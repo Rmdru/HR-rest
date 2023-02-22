@@ -71,26 +71,27 @@ export default class Teacher {
     }
 
     removeTeacherInfo() {
-        const creatBtn = document.querySelector('#btnCreate')
+        if (document.querySelector("#students") != null) {
+            const creatBtn = document.querySelector('#btnCreate');
 
-        if (creatBtn != null) {
-            creatBtn.addEventListener('click', () => {
-                console.log('terst')
-                // Get the modal element
-                const modal = document.getElementById("teacherModal");
+            if (creatBtn != null) {
+                creatBtn.addEventListener('click', () => {
+                    console.log('terst')
+                    // Get the modal element
+                    const modal = document.getElementById("teacherModal");
 
-                // Get the form input elements
-                const nameInput = modal.querySelector("#inputName");
-                const emailInput = modal.querySelector("#inputEmail");
-                // const classInput = modal.querySelector("#inputClass");
+                    // Get the form input elements
+                    const nameInput = modal.querySelector("#inputName");
+                    const emailInput = modal.querySelector("#inputEmail");
+                    // const classInput = modal.querySelector("#inputClass");
 
 
-                // Set the value of the input elements to the values from the response data
-                nameInput.value = '';
-                emailInput.value = '';
-                // classInput.value = '';
-            })
+                    // Set the value of the input elements to the values from the response data
+                    nameInput.value = '';
+                    emailInput.value = '';
+                    // classInput.value = '';
+                })
+            }
         }
     }
 }
-

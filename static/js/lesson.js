@@ -33,7 +33,7 @@ export default class Lesson {
     }
 
     getLessonInfo() {
-        if (document.querySelector("#lesssons") != null) {
+        if (document.querySelector("#lessons") != null) {
 
             // Select all edit modal buttons
             const editModalBtns = document.querySelectorAll(".lessons #btnEdit");
@@ -123,6 +123,5 @@ export default class Lesson {
             }
         }
     }
-
 }
 
