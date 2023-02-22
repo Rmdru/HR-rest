@@ -4,7 +4,6 @@ export default class Lesson {
         this.getLessonInfo();
         this.removeLessonInfo()
         this.initializeDatePicker();
-        this.removeLessonInfo()
     }
 
     deleteFunction() {
@@ -15,6 +14,7 @@ export default class Lesson {
         deleteBtns.forEach((item) => {
             // add click event listener to each delete button
             item.addEventListener('click', (i) => {
+                console.log('testjoidjsfo')
                 // retrieve the unique id of the row to be deleted
                 const rowId = item.getAttribute('data-id')
 
@@ -53,12 +53,14 @@ export default class Lesson {
 
                         // Get the form input elements
                         const nameInput = modal.querySelector("#inputName");
+                        const questionTextarea = modal.querySelector("#textareaQuestion");
                         const dateInput = modal.querySelector("#inputDate");
                         const startTimeInput = modal.querySelector("#inputStartTime");
                         const endTimeInput = modal.querySelector("#inputEndTime");
 
                         // Set the value of the input elements to the values from the response data
                         nameInput.value = lesson.name;
+                        questionTextarea.value = lesson.question;
                         dateInput.value = lesson.date;
                         startTimeInput.value = lesson.start_time;
                         endTimeInput.value = lesson.end_time;
@@ -75,7 +77,6 @@ export default class Lesson {
 
         if (creatBtn != null) {
             creatBtn.addEventListener('click', () => {
-                console.log('terst')
                 // Get the modal element
                 const modal = document.getElementById("lessonModal");
 

@@ -1,0 +1,37 @@
+{% include "layout.html" %}
+{% include "/lessons/lesson_model.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="container">
+    <div class="lessons_index">
+        <div class="top-content">
+            <h1>Aanwezigheid</h1>
+            <a href="/lessen_overzicht" class="button">Naar lessen</a>
+        </div>
+        <table class="table">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Student">Student</th>
+                <th scope="Checkin-time">Inklok tijd</th>
+                <th scope="Checkin-time">Mood</th>
+                <th scope="Checkin-time">Antwoord vraag</th>
+                <th scope="Delete">Verwijderen</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for attendance in attendances %}
+            <tr>
+                <td>{{ attendance.student_id }}</td>
+                <td>{{ attendance.checkin_time.strftime('%H:%M:%S') }}</td>
+                <td>{{ attendance.mood }}</td>
+                <td>{{ attendance.question_answer }}</td>
+                <td><a href="" class="red">Verwijderen</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+{% endblock %}

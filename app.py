@@ -22,6 +22,7 @@ db = SQLAlchemy()
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(app.root_path, 'databases', 'hogeschool_rotterdam.db')
 db.init_app(app)
 
+
 # import declared routes
 import routes.authRoutes
 import routes.lessonRoutes
@@ -31,6 +32,7 @@ import routes.studentRoutes
 routes.studentRoutes.setup_student_routes(app)
 import routes.classRoutes
 routes.lessonRoutes.setup_lesson_routes(app)
+routes.qrRoutes.setup_qr_routes(app)
 routes.authRoutes.setup_auth_routes(app)
 routes.teacherRoutes.setup_teacher_routes(app)
 routes.classRoutes.setup_class_routes(app)

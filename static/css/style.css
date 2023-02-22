@@ -12,14 +12,13 @@
 }
 
 .index .container {
-    width: 1200px;
     margin: 0 auto;
     padding: unset;
     padding-top: 120px;
 }
 
 .navigation .nav_container {
-    width: 1200px;
+    width: 1140px;
     margin: 0 auto;
     padding: unset;
     padding-top: 120px;
@@ -146,7 +145,25 @@
     margin: 45px 0 20px 0;
 }
 
-.qrcode{
-    padding: 200px 0;
+.qrcode {
     text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkin-form .top-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 45px 0 20px 0;
+}
+
+.checkin-form form {
+    background: #EBEBEB;
+    padding: 20px;
+    border-radius: 6px;
+    color: var(--textColor);
 }
