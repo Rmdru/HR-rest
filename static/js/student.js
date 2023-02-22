@@ -1,15 +1,15 @@
-export default class Lesson {
+export default class Student {
     constructor() {
         this.deleteFunction();
-        this.getLessonInfo();
-        this.removeLessonInfo()
+        this.getStudentInfo();
+        this.removeStudentInfo()
         this.initializeDatePicker();
-        this.removeLessonInfo()
+        this.removeStudentInfo()
     }
 
     deleteFunction() {
         // select all elements with the id "btnDelete"
-        const deleteBtns = document.querySelectorAll(".lessons #btnDelete")
+        const deleteBtns = document.querySelectorAll(".students #btnDelete")
 
         // loop through each delete button
         deleteBtns.forEach((item) => {
@@ -18,9 +18,9 @@ export default class Lesson {
                 // retrieve the unique id of the row to be deleted
                 const rowId = item.getAttribute('data-id')
 
-                // make a DELETE request to the server to delete the specified lesson
-                axios.delete('/lessons/' + rowId).then((response) => {
-                    // reload the page after the lesson is successfully deleted
+                // make a DELETE request to the server to delete the specified student
+                axios.delete('/students/' + rowId).then((response) => {
+                    // reload the page after the student is successfully deleted
                     location.reload();
                 }, (error) => {
                     console.log(error);
@@ -30,38 +30,35 @@ export default class Lesson {
 
     }
 
-    getLessonInfo() {
+    getStudentInfo() {
         // Select all edit modal buttons
-        const editModalBtns = document.querySelectorAll(".lessons #btnEdit");
+        const editModalBtns = document.querySelectorAll(".students #btnEdit");
 
         // Loop through each button
         editModalBtns.forEach((item) => {
             // Add click event listener to each button
             item.addEventListener("click", () => {
                 const rowId = item.getAttribute("data-id");
-                console.log(rowId)
-                // Make a GET request to retrieve the data for the selected lesson
-                axios.get("/lessons/" + rowId).then((response) => {
-                    const lesson = response.data.lesson;
+                // Make a GET request to retrieve the data for the selected student
+                axios.get("/students/" + rowId).then((response) => {
+                    const student = response.data.student;
                     // check if the data is present in the response
-                    if (lesson) {
+                    if (student) {
                         // Get the modal element
-                        const modal = document.getElementById("lessonModal");
+                        const modal = document.getElementById("studentModal");
 
                         // Update the form action to include the ID
-                        document.querySelector("#lessonForm").action = `/lessons/${rowId}`;
+                        document.querySelector("#studentForm").action = `/students/${rowId}`;
 
                         // Get the form input elements
                         const nameInput = modal.querySelector("#inputName");
-                        const dateInput = modal.querySelector("#inputDate");
-                        const startTimeInput = modal.querySelector("#inputStartTime");
-                        const endTimeInput = modal.querySelector("#inputEndTime");
+                        const emailInput = modal.querySelector("#inputEmail");
+                        const studentNumberInput = modal.querySelector("#inputStudentNumber");
 
                         // Set the value of the input elements to the values from the response data
-                        nameInput.value = lesson.name;
-                        dateInput.value = lesson.date;
-                        startTimeInput.value = lesson.start_time;
-                        endTimeInput.value = lesson.end_time;
+                        nameInput.value = student.name;
+                        emailInput.value = student.email;
+                        studentNumberInput.value = student.student_number;
                     } else {
                         console.error("No data found in the response");
                     }
@@ -70,26 +67,24 @@ export default class Lesson {
         });
     }
 
-    removeLessonInfo() {
+    removeStudentInfo() {
         const creatBtn = document.querySelector('.lessons #btnCreate')
 
         if (creatBtn != null) {
             creatBtn.addEventListener('click', () => {
                 console.log('terst')
                 // Get the modal element
-                const modal = document.getElementById("lessonModal");
+                const modal = document.getElementById("studentModal");
 
                 // Get the form input elements
                 const nameInput = modal.querySelector("#inputName");
-                const dateInput = modal.querySelector("#inputDate");
-                const startTimeInput = modal.querySelector("#inputStartTime");
-                const endTimeInput = modal.querySelector("#inputEndTime");
+                const emailInput = modal.querySelector("#inputEmail");
+                const studentNumberInput = modal.querySelector("#inputStudentNumber");
 
                 // Set the value of the input elements to the values from the response data
                 nameInput.value = '';
-                dateInput.value = '';
-                startTimeInput.value = startTimeInput.options[0].value;
-                endTimeInput.value = endTimeInput.options[0].value;
+                emailInput.value = '';
+                studentNumberInput.value = '';
             })
         }
     }
