@@ -68,7 +68,7 @@ export default class Student {
     }
 
     removeStudentInfo() {
-        const creatBtn = document.querySelector('.lessons #btnCreate')
+        const creatBtn = document.querySelector('.students #btnCreate')
 
         if (creatBtn != null) {
             creatBtn.addEventListener('click', () => {

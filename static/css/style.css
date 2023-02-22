@@ -138,14 +138,7 @@
     color: var(--racBlue) !important;
 }
 
-.lessons_index .top-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 45px 0 20px 0;
-}
-
-.attendance_index .top-content {
+.index .top-content {
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -8,7 +8,7 @@ export default class Lesson {
 
     deleteFunction() {
 
-        if (document.querySelector(".lessons_index") != null) {
+        if (document.querySelector("#lessons") != null) {
             // select all elements with the id "btnDelete"
             const deleteBtns = document.querySelectorAll(".lessons #btnDelete")
 
@@ -33,7 +33,7 @@ export default class Lesson {
     }
 
     getLessonInfo() {
-        if (document.querySelector(".lessons_index") != null) {
+        if (document.querySelector("#lesssons") != null) {
 
             // Select all edit modal buttons
             const editModalBtns = document.querySelectorAll(".lessons #btnEdit");
@@ -78,7 +78,7 @@ export default class Lesson {
     }
 
     removeLessonInfo() {
-        if (document.querySelector(".lessons_index") != null) {
+        if (document.querySelector("#lessons") != null) {
 
             const creatBtn = document.querySelector('.lessons #btnCreate')
 
@@ -106,7 +106,7 @@ export default class Lesson {
     }
 
     initializeDatePicker() {
-        if (document.querySelector(".lessons_index") != null) {
+        if (document.querySelector("#lessons") != null) {
             const dateInputs = document.querySelectorAll('.datepicker');
 
             if (dateInputs != null) {

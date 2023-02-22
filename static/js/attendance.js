@@ -6,7 +6,7 @@ export default class Attendance {
     }
 
     deleteFunction() {
-        if (document.querySelector(".attendance_index") != null) {
+        if (document.querySelector("#attendance") != null) {
             // select all elements with the id "btnDelete"
             const deleteBtns = document.querySelectorAll("#btnDelete")
 
@@ -54,7 +54,7 @@ export default class Attendance {
     }
 
     getAttendance() {
-        if (document.querySelector(".attendance_index") != null) {
+        if (document.querySelector("#attendance") != null) {
             var socket = io.connect();
             var uuid = document.querySelector(".attendance_index").getAttribute("data-id");
 
