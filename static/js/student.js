@@ -4,6 +4,7 @@ export default class Student {
         this.getStudentInfo();
         this.removeStudentInfo();
         this.removeStudentInfo();
+        this.searchStudent();
     }
 
     deleteFunction() {
@@ -89,6 +90,39 @@ export default class Student {
                     emailInput.value = '';
                     studentNumberInput.value = '';
                 })
+            }
+        }
+    }
+
+    //Search for students
+    searchStudent() {
+        if (document.querySelector("#students") != null) {
+            const searchInput = document.querySelector("#filterAccordion");
+
+            var searchStudent = function () {
+                //get search input
+                var input = document.getElementById("searchName").value;
+
+                //send request with axios
+                axios.get("/students/search/" + input).then((response) => {
+                    const search = response.data.search;
+                    // check if the data is present in the response
+                    if (search) {
+                        // Get the element
+                        const el = document.querySelector(".table");
+
+                        // Set the value of the input elements to the values from the response data
+                        el = search;
+                    } else {
+                        console.error("No data found in the response");
+                    }
+                });
+            }
+
+            //Event listeners
+            if (searchInput != null) {
+                searchInput.addEventListener('keyup', searchStudent, false);
+                searchInput.addEventListener('change', searchStudent, false);
             }
         }
     }
