@@ -102,6 +102,10 @@ export default class Student {
             var filterStudent = function () {
                 //get filter input
                 var input = document.getElementById("filterName").value;
+                
+                if (input == "") {
+                    input = null;
+                }
 
                 //send request with axios
                 axios.get("/students/filter/" + input).then((response) => {
@@ -111,23 +115,25 @@ export default class Student {
                         // Get the element
                         let el = document.querySelector(".table tbody");
 
-                        // Set the value of the input elements to the values from the response data
-                        console.log(results);
-                        var output = "<tr>";
-                        for (var i in results) {
-                            var id = results[i].id;
-                            var name = results[i].name;
-                            var email = results[i].email;
-                            var studentNumber = results[i].student_number;
+                        //Create empty output var
+                        let output = "";
 
-                            output += `<td>${name}</td>`;
-                            output += `<td>${email}</td>`;
-                            output += `<td>${studentNumber}</td>`;
-                            output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
-                            output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>`;
-                            output += `<td><a href="/students/${studentNumber}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
+                        //Show results in table
+                        for (let i in results) {
+                            output += "<tr>";
+                                let id = results[i].id;
+                                let name = results[i].name;
+                                let email = results[i].email;
+                                let studentNumber = results[i].student_number;
+
+                                output += `<td>${name}</td>`;
+                                output += `<td>${email}</td>`;
+                                output += `<td>${studentNumber}</td>`;
+                                output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
+                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>`;
+                                output += `<td><a href="/students/${studentNumber}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
+                            output += "</tr>";
                         }
-                        output += "</tr>";
 
                         el.innerHTML = output;
                     } else {
