@@ -130,7 +130,7 @@ export default class Teacher {
                                 output += `<td>${name}</td>`;
                                 output += `<td>${email}</td>`;
                                 output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
-                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>`;
+                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#teacherModal">Wijzigen</a></td>`;
                             output += "</tr>";
                         }
 

@@ -51,4 +51,16 @@ class classController():
         db.session.commit()
         return '', 204
 
+    @staticmethod
+    def filter_classes(input):
+        if input != "null":
+            search = "%{}%".format(input)
 
+            results = Class.query.filter(Class.name.like(search))
+        else:
+            results = Class.query.all()
+
+        if not results:
+            return jsonify({'message': 'No results'}), 404
+        results_dict = [result.to_dict() for result in results]
+        return results_dict
