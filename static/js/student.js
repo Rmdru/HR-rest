@@ -4,7 +4,7 @@ export default class Student {
         this.getStudentInfo();
         this.removeStudentInfo();
         this.removeStudentInfo();
-        this.searchStudent();
+        this.filterStudent();
     }
 
     deleteFunction() {
@@ -94,25 +94,26 @@ export default class Student {
         }
     }
 
-    //Search for students
-    searchStudent() {
+    //Filter for students
+    filterStudent() {
         if (document.querySelector("#students") != null) {
-            const searchInput = document.querySelector("#filterAccordion");
+            const filterInput = document.querySelector("#filterAccordion");
 
-            var searchStudent = function () {
-                //get search input
-                var input = document.getElementById("searchName").value;
+            var filterStudent = function () {
+                //get filter input
+                var input = document.getElementById("filterName").value;
 
                 //send request with axios
-                axios.get("/students/search/" + input).then((response) => {
-                    const search = response.data.search;
+                axios.get("/students/filter/" + input).then((response) => {
+                    const results = response.data.filter;
                     // check if the data is present in the response
-                    if (search) {
+                    if (results) {
                         // Get the element
-                        const el = document.querySelector(".table");
+                        let el = document.querySelector(".table");
 
                         // Set the value of the input elements to the values from the response data
-                        el = search;
+                        console.log(results);
+                        el.innerHTML = results;
                     } else {
                         console.error("No data found in the response");
                     }
@@ -120,9 +121,9 @@ export default class Student {
             }
 
             //Event listeners
-            if (searchInput != null) {
-                searchInput.addEventListener('keyup', searchStudent, false);
-                searchInput.addEventListener('change', searchStudent, false);
+            if (filterInput != null) {
+                filterInput.addEventListener('keyup', filterStudent, false);
+                filterInput.addEventListener('change', filterStudent, false);
             }
         }
     }

@@ -34,3 +34,8 @@ def setup_student_routes(app):
         attendance_dicts = [attendance.to_dict() for attendance in attendances]
 
         return render_template("/students/attendance/index.html", id=id, attendances=attendance_dicts)
+    
+    # Route to filter students
+    @app.route('/students/filter/<input>', methods=['GET'])
+    def filter_student(input):
+        return StudentController.filter_student(input)
