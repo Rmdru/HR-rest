@@ -105,15 +105,31 @@ export default class Student {
 
                 //send request with axios
                 axios.get("/students/filter/" + input).then((response) => {
-                    const results = response.data.filter;
+                    const results = response.data;
                     // check if the data is present in the response
                     if (results) {
                         // Get the element
-                        let el = document.querySelector(".table");
+                        let el = document.querySelector(".table tbody");
 
                         // Set the value of the input elements to the values from the response data
                         console.log(results);
-                        el.innerHTML = results;
+                        var output = "<tr>";
+                        for (var i in results) {
+                            var id = results[i].id;
+                            var name = results[i].name;
+                            var email = results[i].email;
+                            var studentNumber = results[i].student_number;
+
+                            output += `<td>${name}</td>`;
+                            output += `<td>${email}</td>`;
+                            output += `<td>${studentNumber}</td>`;
+                            output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
+                            output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>`;
+                            output += `<td><a href="/students/${studentNumber}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
+                        }
+                        output += "</tr>";
+
+                        el.innerHTML = output;
                     } else {
                         console.error("No data found in the response");
                     }
