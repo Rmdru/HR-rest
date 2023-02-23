@@ -25,7 +25,11 @@ def setup_lesson_routes(app):
     @app.route('/lessons/<id>', methods=['DELETE'])
     def delete_lesson(id):
         return LessonController.delete_lesson(id)
-
+        
+    # Route to filter lessons
+    @app.route('/lessons/filter/<input>', methods=['GET'])
+    def filter_lessons(input):
+        return LessonController.filter_lessons(input)
 
 
 

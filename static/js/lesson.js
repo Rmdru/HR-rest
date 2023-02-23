@@ -4,6 +4,7 @@ export default class Lesson {
         this.getLessonInfo();
         this.removeLessonInfo()
         this.initializeDatePicker();
+        this.filterLessons();
     }
 
     deleteFunction() {
@@ -120,6 +121,66 @@ export default class Lesson {
                         }
                     });
                 });
+            }
+        }
+    }
+
+    //Filter for lessons
+    filterLessons() {
+        if (document.querySelector("#lessons") != null) {
+            const filterInput = document.querySelector("#filterAccordion");
+
+            var filterLessons = function () {
+                //get filter input
+                var input = document.getElementById("filterName").value;
+                
+                if (input == "") {
+                    input = null;
+                }
+
+                //send request with axios
+                axios.get("/lessons/filter/" + input).then((response) => {
+                    const results = response.data;
+                    // check if the data is present in the response
+                    if (results) {
+                        // Get the element
+                        let el = document.querySelector(".table tbody");
+
+                        //Create empty output var
+                        let output = "";
+
+                        //Show results in table
+                        for (let i in results) {
+                            output += "<tr>";
+                                let id = results[i].id;
+                                let name = results[i].name;
+                                let question = results[i].question;
+                                let date = results[i].date;
+                                let start_time = results[i].start_time;
+                                let end_time = results[i].end_time;
+
+                                output += `<td>${name}</td>`;
+                                output += `<td>${question}</td>`;
+                                output += `<td>${date}</td>`;
+                                output += `<td>${start_time}</td>`;
+                                output += `<td>${end_time}</td>`;
+                                output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
+                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#lessonModal">Wijzigen</a></td>`;
+                                output += `<td><a href="/lessons/${id}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
+                            output += "</tr>";
+                        }
+
+                        el.innerHTML = output;
+                    } else {
+                        console.error("No data found in the response");
+                    }
+                });
+            }
+
+            //Event listeners
+            if (filterInput != null) {
+                filterInput.addEventListener('keyup', filterLessons, false);
+                filterInput.addEventListener('change', filterLessons, false);
             }
         }
     }
