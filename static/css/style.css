@@ -167,3 +167,7 @@
     border-radius: 6px;
     color: var(--textColor);
 }
+
+.material-icons {
+    vertical-align: middle;
+}
