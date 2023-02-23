@@ -97,7 +97,7 @@ export default class Student {
     //Filter for students
     filterStudent() {
         if (document.querySelector("#students") != null) {
-            const filterInput = document.querySelector("#filterAccordion");
+            const filterInput = document.querySelector("#filterAccordion input");
 
             var filterStudent = function () {
                 //get filter input

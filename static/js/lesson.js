@@ -128,7 +128,7 @@ export default class Lesson {
     //Filter for lessons
     filterLessons() {
         if (document.querySelector("#lessons") != null) {
-            const filterInput = document.querySelector("#filterAccordion");
+            const filterInput = document.querySelector("#filterAccordion input");
 
             var filterLessons = function () {
                 //get filter input
