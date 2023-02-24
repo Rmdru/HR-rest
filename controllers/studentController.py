@@ -1,4 +1,4 @@
-from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid
+from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid, flash
 from models.userModel import User
 
 
@@ -24,6 +24,10 @@ class StudentController():
         student_number = int(request.form.get('student_number'))
 
         new_student = User(name=name, email=email, studentNumber=student_number, role=1)
+
+        if User.query.filter((User.studentNumber == student_number) | (User.email == email)).first() is not None:
+            flash("Error: Dit studentnummer of email bestaat al.")
+            return redirect(url_for('students_index'))
 
         db.session.add(new_student)
         db.session.commit()
