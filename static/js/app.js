@@ -3,6 +3,7 @@ import Student from "./student.js";
 import Class_ from "./class.js";
 import Teacher from "./teacher.js";
 import Attendance from "./attendance.js";
+import User from "./user.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     new Lesson();
@@ -10,4 +11,5 @@ document.addEventListener("DOMContentLoaded", () => {
     new Student();
     new Class_();
     new Teacher();
+    new User();
 })
