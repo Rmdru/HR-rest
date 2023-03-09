@@ -69,11 +69,19 @@ class LessonController():
     @staticmethod
     def filter_lessons(name, startDate, endDate):
         if name != "null" or startDate != "null" or endDate != "null":
-            searchName = f"%{name}%"
-            searchStartDate = f"%{startDate}%"
-            searchEndDate = f"%{endDate}%"
+            if name == "null":
+                name = ""
 
-            results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.name.like(searchStartDate)).filter(Lesson.name.like(searchEndDate))
+            searchName = f"%{name}%"
+            startDate = startDate.replace("%20", " ")
+            endDate = endDate.replace("%20", " ")
+
+            if startDate != "null" and endDate != "null":
+                results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date.between(startDate, endDate))
+            elif startDate != "null":
+                results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date >= startDate)
+            elif endDate != "null":
+                results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date <= endDate)
         else:
             results = Lesson.query.all()
 

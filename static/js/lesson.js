@@ -106,27 +106,23 @@ export default class Lesson {
         }
     }
 
-    initializeDatePicker() {
-        if (document.querySelector("#lessons") != null) {
-            const dateInputs = document.querySelectorAll('.datepicker');
-
-            if (dateInputs != null) {
-                dateInputs.forEach((input) => {
-                    const picker = new Pikaday({
-                        field: input,
-                        format: 'DD/MM/YYYY',
-                        minDate: new Date(),
-                        onSelect: function () {
-                            console.log(input.value = this.toString());
-                        }
-                    });
-                });
-            }
-        }
-    }
-
     //Filter for lessons
     filterLessons() {
+        //init datepicker for this filter
+        const dateInputsFilter = document.querySelectorAll('.datepickerFilter');
+
+        if (dateInputsFilter != null) {
+            dateInputsFilter.forEach((input) => {
+                const picker = new Pikaday({
+                    field: input,
+                    format: 'DD/MM/YYYY',
+                    onSelect: function () {
+                        filterLessons();
+                    }
+                });
+            });
+        }
+
         if (document.querySelector("#lessons") != null) {
             const filterInput = document.querySelector("#filterAccordion input");
 
@@ -192,6 +188,25 @@ export default class Lesson {
             if (filterInput != null) {
                 filterInput.addEventListener('keyup', filterLessons, false);
                 filterInput.addEventListener('change', filterLessons, false);
+            }
+        }
+    }
+
+    initializeDatePicker() {
+        if (document.querySelector("#lessons") != null) {
+            const dateInputs = document.querySelectorAll('.datepicker');
+
+            if (dateInputs != null) {
+                dateInputs.forEach((input) => {
+                    const picker = new Pikaday({
+                        field: input,
+                        format: 'DD/MM/YYYY',
+                        minDate: new Date(),
+                        onSelect: function () {
+                            console.log(input.value = this.toString());
+                        }
+                    });
+                });
             }
         }
     }
