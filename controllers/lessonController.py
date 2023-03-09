@@ -67,11 +67,13 @@ class LessonController():
         return '', 204
 
     @staticmethod
-    def filter_lessons(input):
-        if input != "null":
-            search = "%{}%".format(input)
+    def filter_lessons(name, startDate, endDate):
+        if name != "null" or startDate != "null" or endDate != "null":
+            searchName = f"%{name}%"
+            searchStartDate = f"%{startDate}%"
+            searchEndDate = f"%{endDate}%"
 
-            results = Lesson.query.filter(Lesson.name.like(search))
+            results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.name.like(searchStartDate)).filter(Lesson.name.like(searchEndDate))
         else:
             results = Lesson.query.all()
 
