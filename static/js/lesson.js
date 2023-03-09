@@ -132,14 +132,25 @@ export default class Lesson {
 
             var filterLessons = function () {
                 //get filter input
-                var input = document.getElementById("filterName").value;
+                var name = document.getElementById("filterName").value;
+                var startDate = document.getElementById("filterStartDate").value;
+                var endDate = document.getElementById("filterEndDate").value;
                 
-                if (input == "") {
-                    input = null;
+                //check if inputs are empty
+                if (name == "") {
+                    name = null;
+                }
+                
+                if (startDate == "") {
+                    startDate = null;
+                }
+                
+                if (endDate == "") {
+                    endDate = null;
                 }
 
                 //send request with axios
-                axios.get("/lessons/filter/" + input).then((response) => {
+                axios.get(`/lessons/filter/${name}/${startDate}/${endDate}`).then((response) => {
                     const results = response.data;
                     // check if the data is present in the response
                     if (results) {
