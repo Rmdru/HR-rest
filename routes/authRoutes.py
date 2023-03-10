@@ -45,7 +45,8 @@ def setup_auth_routes(app):
             flash('Vul alle velden in')
             return redirect(url_for('signup'))
 
-        new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), role=0, studentNumber=None)
+        new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), role=0,
+                        studentNumber=None)
 
         db.session.add(new_user)
         db.session.commit()
@@ -65,8 +66,10 @@ def setup_auth_routes(app):
             return redirect(url_for('login'))
 
         login_user(user)
-
-        return redirect(url_for('index'))
+        if user.role == 1:
+            return redirect(url_for('lessons_index'))
+        else:
+            return redirect(url_for('index'))
 
     # Het
     @app.route('/logout')

@@ -14,6 +14,7 @@
                         </div>
                     </div>
                 </a>
+                {% if current_user.role != 2 %}
                 <a href="/docenten_overzicht" class="item">
                     <span class="fa-solid fa-person-chalkboard tileIcon"></span>
                     <div class="flex">
@@ -23,6 +24,8 @@
                         </div>
                     </div>
                 </a>
+                {% endif %}
+
                 <a href="/lessen_overzicht" class="item">
                     <span class="material-icons tileIcon">school</span>
                     <div class="flex">

@@ -23,7 +23,7 @@ class TeacherController():
         email = request.form.get('email')
         teacher_id = str(uuid.uuid4())
 
-        new_teacher = User(id=teacher_id, name=name, email=email, role=1)
+        new_teacher = User(id=teacher_id, name=name, email=email, role=2)
 
         db.session.add(new_teacher)
         db.session.commit()
