@@ -18,6 +18,9 @@ app = Flask(__name__)
 def send_js(path):
     return send_from_directory('static/js', path, mimetype='application/javascript')
 
+@app.route('/chart')
+def chart():
+    return render_template('chart.html')
 
 # This command creates the "<application directory>/databases/hogeschool_rotterdam.db" path
 db = SQLAlchemy()
@@ -31,17 +34,14 @@ import routes.lessonRoutes
 import routes.attendanceRoutes
 import routes.teacherRoutes
 import routes.studentRoutes
-routes.studentRoutes.setup_student_routes(app)
 import routes.classRoutes
+routes.studentRoutes.setup_student_routes(app)
 routes.lessonRoutes.setup_lesson_routes(app)
 routes.attendanceRoutes.setup_qr_routes(app)
 routes.authRoutes.setup_auth_routes(app)
 routes.teacherRoutes.setup_teacher_routes(app)
 routes.classRoutes.setup_class_routes(app)
 
-import models.userModel
-with app.app_context():
-    db.create_all()
 
 # Secret key for the session
 app.secret_key = '1335eb3948fb7b64a029aa29'

@@ -18,7 +18,17 @@
                     </div>
                     <div class="form-group">
                         <label for="textareaQuestion">Vraag (optioneel)</label>
-                        <textarea name="question" id="textareaQuestion" class="form-control" cols="30" rows="5"></textarea>
+                        <textarea name="question" id="textareaQuestion" class="form-control" cols="30"
+                                  rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectClasses">Klassen</label>
+                        <select required name="classes" class="form-control" id="selectClasses" multiple>
+                            {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <small>Selecteer meerdere opties door de Ctrl-toets ingedrukt te houden terwijl u klikt.</small>
                     </div>
                     <div class="form-group">
                         <label for="inputDate">Datum</label>
