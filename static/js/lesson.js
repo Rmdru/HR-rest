@@ -115,8 +115,9 @@ export default class Lesson {
             dateInputsFilter.forEach((input) => {
                 const picker = new Pikaday({
                     field: input,
-                    format: 'DD/MM/YYYY',
-                    onSelect: function () {
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                    onSelect: function (field) {
+                        field.value = this.getMoment().format('YYYY-MM-DD HH:mm:ss');
                         filterLessons();
                     }
                 });
@@ -200,9 +201,10 @@ export default class Lesson {
                 dateInputs.forEach((input) => {
                     const picker = new Pikaday({
                         field: input,
-                        format: 'DD/MM/YYYY',
+                        format: 'YYYY-MM-DD HH:mm:ss',
                         minDate: new Date(),
-                        onSelect: function () {
+                        onSelect: function (field) {
+                            field.value = this.getMoment().format('YYYY-MM-DD HH:mm:ss');
                             console.log(input.value = this.toString());
                         }
                     });
