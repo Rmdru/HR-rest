@@ -34,7 +34,6 @@ export default class Teacher {
         if (document.querySelector("#teachers") != null) {
             // Select all edit modal buttons
             const editModalBtns = document.querySelectorAll("#btnEdit");
-
             // Loop through each button
             editModalBtns.forEach((item) => {
                 // Add click event listener to each button
@@ -71,7 +70,7 @@ export default class Teacher {
     }
 
     removeTeacherInfo() {
-        if (document.querySelector("#students") != null) {
+        if (document.querySelector("#teachers") != null) {
             const creatBtn = document.querySelector('#btnCreate');
 
             if (creatBtn != null) {
