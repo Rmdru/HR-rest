@@ -18,9 +18,6 @@ app = Flask(__name__)
 def send_js(path):
     return send_from_directory('static/js', path, mimetype='application/javascript')
 
-@app.route('/chart')
-def chart():
-    return render_template('chart.html')
 
 # This command creates the "<application directory>/databases/hogeschool_rotterdam.db" path
 db = SQLAlchemy()
