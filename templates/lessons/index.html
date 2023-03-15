@@ -5,8 +5,35 @@
 <div class="lessons container">
     <div class="index" id="lessons">
         <div class="top-content">
-            <h1>Lessen</h1>
+            <h1><span class="material-icons" style="font-size: 40px;">school</span> Lessen</h1>
             <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModal">Les toevoegen</a>
+        </div>
+        <div class="accordion mb-5" id="filterAccordion">
+            <div class="card">
+              <div class="card-header" id="filterAccordionHeader">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="material-icons">filter_alt</span>Filters                    
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="filterAccordionHeader" data-parent="#filterAccordion">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="filterName">Naam</label>
+                        <input type="text" name="name" required class="form-control w-25" id="filterName">
+                    </div>
+                    <div class="form-group">
+                      <label for="filterStartDate">Begin datum</label>
+                      <input type="text" name="date" required class="form-control datepickerFilter w-25" autocomplete="off" id="filterStartDate" />
+                  </div>
+                  <div class="form-group">
+                    <label for="filterEndDate">Eind datum</label>
+                    <input type="text" name="date" required class="form-control datepickerFilter w-25" autocomplete="off" id="filterEndDate" />
+                </div>
+                </div>
+              </div>
+            </div>
         </div>
         <table class="table">
             <thead style="background-color: black; color: #fff;">

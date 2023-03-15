@@ -26,3 +26,8 @@ def setup_class_routes(app):
     @app.route('/classes/<id>', methods=['DELETE'])
     def delete_class(id):
         return classController.delete_class(id)
+        
+    # Route to filter classes
+    @app.route('/classes/filter/<input>', methods=['GET'])
+    def filter_classes(input):
+        return classController.filter_classes(input)

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, flash, render_template, jsonify, send_from_directory, send_file
+from flask import Flask, redirect, url_for, request, flash, render_template, jsonify, send_from_directory, send_file, session
 import os.path, uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -38,10 +38,6 @@ routes.attendanceRoutes.setup_qr_routes(app)
 routes.authRoutes.setup_auth_routes(app)
 routes.teacherRoutes.setup_teacher_routes(app)
 routes.classRoutes.setup_class_routes(app)
-
-import models.userModel
-with app.app_context():
-    db.create_all()
 
 # Secret key for the session
 app.secret_key = '1335eb3948fb7b64a029aa29'

@@ -1,7 +1,6 @@
 from __main__ import app, render_template, request, \
     SQLAlchemy, os, UserMixin, flash, redirect, url_for, \
-    generate_password_hash, check_password_hash, login_user, logout_user, LoginManager, login_required, db
-from models.userModel import User
+    generate_password_hash, check_password_hash, login_user, logout_user, LoginManager, login_required, db, session, jsonify
 from models.userModel import User
 
 login_manager = LoginManager()
@@ -66,10 +65,22 @@ def setup_auth_routes(app):
             return redirect(url_for('login'))
 
         login_user(user)
+        
         if user.role == 1:
             return redirect(url_for('lessons_index'))
         else:
+            session['user_id'] = user.id
+
             return redirect(url_for('index'))
+    
+    # Get user id of current logged in user
+    @app.route('/user/user-id', methods=["GET"])
+    def user_id():
+        id = session['user_id']
+        user = User.query.get(id)
+        if not user:
+            return jsonify({'message': 'User not found'}), 404
+        return jsonify({'user': user.to_dict()}), 200
 
     # Het
     @app.route('/logout')

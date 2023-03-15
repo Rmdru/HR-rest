@@ -6,7 +6,7 @@ class TeacherController():
 
     @staticmethod
     def get_all_teachers():
-        teachers = User.query.all()
+        teachers = User.query.filter_by(role=0)
         teachers_dict = [teacher.to_dict() for teacher in teachers]
         return teachers_dict
 
@@ -58,6 +58,20 @@ class TeacherController():
         db.session.delete(teacher)
         db.session.commit()
         return '', 204
+    
+    @staticmethod
+    def filter_teacher(input):
+        if input != "null":
+            search = "%{}%".format(input)
+
+            results = User.query.filter_by(role=0).filter(User.name.like(search))
+        else:
+            results = User.query.filter_by(role=0)
+
+        if not results:
+            return jsonify({'message': 'No results'}), 404
+        results_dict = [result.to_dict() for result in results]
+        return results_dict
 
 
 def teacherController():

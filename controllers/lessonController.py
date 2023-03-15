@@ -70,4 +70,26 @@ class LessonController():
         db.session.commit()
         return '', 204
 
+    @staticmethod
+    def filter_lessons(name, startDate, endDate):
+        if name != "null" or startDate != "null" or endDate != "null":
+            if name == "null":
+                name = ""
 
+            searchName = f"%{name}%"
+            startDate = startDate.replace("%20", " ")
+            endDate = endDate.replace("%20", " ")
+
+            if startDate != "null" and endDate != "null":
+                results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date.between(startDate, endDate))
+            elif startDate != "null":
+                results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date >= startDate)
+            elif endDate != "null":
+                results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date <= endDate)
+        else:
+            results = Lesson.query.all()
+
+        if not results:
+            return jsonify({'message': 'No results'}), 404
+        results_dict = [result.to_dict() for result in results]
+        return results_dict

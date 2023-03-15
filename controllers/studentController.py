@@ -64,4 +64,16 @@ class StudentController():
         db.session.commit()
         return '', 204
 
+    @staticmethod
+    def filter_student(input):
+        if input != "null":
+            search = "%{}%".format(input)
 
+            results = User.query.filter_by(role=1).filter(User.name.like(search))
+        else:
+            results = User.query.filter_by(role=1)
+
+        if not results:
+            return jsonify({'message': 'No results'}), 404
+        results_dict = [result.to_dict() for result in results]
+        return results_dict

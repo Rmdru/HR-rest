@@ -26,3 +26,8 @@ def setup_teacher_routes(app):
     @app.route('/teacher/<id>', methods=['DELETE'])
     def delete_teacher(id):
         return TeacherController.delete_teacher(id)
+
+    # Route to filter students
+    @app.route('/teacher/filter/<input>', methods=['GET'])
+    def filter_teachers(input):
+        return TeacherController.filter_teacher(input)

@@ -4,6 +4,7 @@ export default class Student {
         this.getStudentInfo();
         this.removeStudentInfo();
         this.removeStudentInfo();
+        this.filterStudent();
         this.createStudent();
         this.updateStudent();
     }
@@ -94,6 +95,62 @@ export default class Student {
                     studentNumberInput.value = '';
                     errorMessage.innerHTML = '';
                 })
+            }
+        }
+    }
+
+    //Filter for students
+    filterStudent() {
+        if (document.querySelector("#students") != null) {
+            const filterInput = document.querySelector("#filterAccordion input");
+
+            var filterStudent = function () {
+                //get filter input
+                var input = document.getElementById("filterName").value;
+                
+                if (input == "") {
+                    input = null;
+                }
+
+                //send request with axios
+                axios.get("/students/filter/" + input).then((response) => {
+                    const results = response.data;
+                    // check if the data is present in the response
+                    if (results) {
+                        // Get the element
+                        let el = document.querySelector(".table tbody");
+
+                        //Create empty output var
+                        let output = "";
+
+                        //Show results in table
+                        for (let i in results) {
+                            output += "<tr>";
+                                let id = results[i].id;
+                                let name = results[i].name;
+                                let email = results[i].email;
+                                let studentNumber = results[i].student_number;
+
+                                output += `<td>${name}</td>`;
+                                output += `<td>${email}</td>`;
+                                output += `<td>${studentNumber}</td>`;
+                                output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
+                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>`;
+                                output += `<td><a href="/students/${studentNumber}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
+                            output += "</tr>";
+                        }
+
+                        el.innerHTML = output;
+                    } else {
+                        console.error("No data found in the response");
+                    }
+                });
+            }
+
+            //Event listeners
+            if (filterInput != null) {
+                filterInput.addEventListener('keyup', filterStudent, false);
+                filterInput.addEventListener('change', filterStudent, false);
             }
         }
     }
