@@ -105,6 +105,8 @@ class LessonController():
                 results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date >= startDate)
             elif endDate != "null":
                 results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date <= endDate)
+            else:
+                results = Lesson.query.filter(Lesson.name.like(searchName))
         else:
             results = Lesson.query.all()
 
