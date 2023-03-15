@@ -161,6 +161,7 @@ export default class Lesson {
                         for (let i in results) {
                             output += "<tr>";
                                 let id = results[i].id;
+                                let classes = results[i].classes;
                                 let name = results[i].name;
                                 let question = results[i].question;
                                 let date = results[i].date;
@@ -169,12 +170,21 @@ export default class Lesson {
 
                                 output += `<td>${name}</td>`;
                                 output += `<td>${question}</td>`;
+                                output += "<td>";
+                                for (i in classes) {
+                                    output += classes[i].name;
+                                    if (i < classes.length - 1) {
+                                        output += ", ";
+                                    }
+                                }
+                                output += "</td>";
                                 output += `<td>${date}</td>`;
                                 output += `<td>${start_time}</td>`;
                                 output += `<td>${end_time}</td>`;
+                                output += `<td><a href="/check-in/${id}" class="blue">QR-code</a></td>`;
+                                output += `<td><a href="/lessons/${id}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
                                 output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
                                 output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#lessonModal">Wijzigen</a></td>`;
-                                output += `<td><a href="/lessons/${id}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
                             output += "</tr>";
                         }
 
