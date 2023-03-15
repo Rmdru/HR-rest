@@ -1,4 +1,4 @@
-from __main__ import jsonify, db, request, render_template, redirect, url_for
+from __main__ import jsonify, db, request, render_template, redirect, url_for, flash
 from models.classModel import Class
 
 
@@ -22,6 +22,10 @@ class classController():
         name = request.form.get('name')
 
         new_class = Class(name=name)
+
+        if Class.query.filter((Class.name == name)).first() is not None:
+            flash("Error: Deze klas bestaat al.")
+            return redirect(url_for('students_index'))
 
         db.session.add(new_class)
         db.session.commit()
