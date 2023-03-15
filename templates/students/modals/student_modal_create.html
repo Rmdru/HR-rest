@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="studentModalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -10,6 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="error"></div>
                 <form action="/students/" method="post" id="studentForm">
                     <input type="hidden" id="inputId" name="id">
                     <div class="form-group">
@@ -29,7 +30,7 @@
                         <button type="button" class="btn" style="background: #D30E4C; color: white"
                                 data-dismiss="modal">Annuleren
                         </button>
-                        <button type="submit" id="btnEdit" class="btn" style="background: #3CAAD7;  color: white">Opslaan
+                        <button type="button" id="saveBtn" class="btn" style="background: #3CAAD7;  color: white">Opslaan
                         </button>
                     </div>
                 </form>

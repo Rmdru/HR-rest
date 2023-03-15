@@ -1,4 +1,4 @@
-from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid
+from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid, flash
 from models.lessonModel import Lesson
 
 
@@ -27,6 +27,10 @@ class LessonController():
         end_time = request.form.get('end_time')
 
         new_lesson = Lesson(id=lesson_id, name=name, question=question, date=date, start_time=start_time, end_time=end_time)
+
+        if Lesson.query.filter((Lesson.name == name)).first() is not None:
+            flash("Error: Deze les bestaat al.")
+            return redirect(url_for('lessons_index'))
 
         db.session.add(new_lesson)
         db.session.commit()
