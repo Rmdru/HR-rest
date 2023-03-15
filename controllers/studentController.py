@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid, flash
-from models.userModel import User
-=======
 from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid
 from models.studentModel import Student
 from models.studentClassModel import StudentClass
->>>>>>> lesson_class
 
 
 class StudentController():
@@ -25,46 +20,19 @@ class StudentController():
 
     @staticmethod
     def create_student():
-<<<<<<< HEAD
         name = request.json.get('name')
         email = request.json.get('email')
         student_number = request.json.get('student_number')
 
-        existing_student = User.query.filter((User.studentNumber == student_number) | (User.email == email)).first()
+        existing_student = Student.query.filter((Student.studentNumber == student_number) | (Student.email == email)).first()
         if existing_student is not None:
             return jsonify({'message': 'Error: Dit studentnummer of email bestaat al.'})
 
-        new_student = User(name=name, email=email, studentNumber=student_number, role=1)
+        new_student = Student(name=name, email=email, studentNumber=student_number, role=1)
         db.session.add(new_student)
         db.session.commit()
 
         return jsonify({'message': 'success'})
-=======
-        print(request.form)
-        name = request.form.get('name')
-        email = request.form.get('email')
-        student_number = int(request.form.get('student_number'))
-
-        # Get a list of the selected class IDs from the form data
-        selected_classes = request.form.getlist('classes')
-
-        # Create a new student
-        new_student = Student(name=name, email=email, student_number=student_number)
-
-        # Add the new student to the database
-        db.session.add(new_student)
-        db.session.commit()
-
-        # Create StudentClass objects for the selected classes and add them to the pivot table
-        for class_id in selected_classes:
-            student_class = StudentClass(student_id=new_student.id, class_id=class_id)
-            db.session.add(student_class)
-
-        # Commit the changes to the database
-        db.session.commit()
-
-        return redirect(url_for('students_index'))
->>>>>>> lesson_class
 
     @staticmethod
     def update_student(id):
@@ -76,7 +44,7 @@ class StudentController():
         email = request.json.get('email')
         student_number = request.json.get('student_number')
 
-        existing_student = User.query.filter((User.studentNumber == student_number) | (User.email == email)).filter(User.id != id).first()
+        existing_student = Student.query.filter((Student.studentNumber == student_number) | (Student.email == email)).filter(Student.id != id).first()
         if existing_student is not None:
             return jsonify({'message': 'Error: Dit studentnummer of email bestaat al.'})
 
@@ -115,9 +83,9 @@ class StudentController():
         if input != "null":
             search = "%{}%".format(input)
 
-            results = User.query.filter_by(role=1).filter(User.name.like(search))
+            results = Student.query.filter_by(role=1).filter(Student.name.like(search))
         else:
-            results = User.query.filter_by(role=1)
+            results = Student.query.filter_by(role=1)
 
         if not results:
             return jsonify({'message': 'No results'}), 404
