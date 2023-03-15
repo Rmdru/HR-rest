@@ -1,5 +1,4 @@
 from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid, flash
-from models.userModel import User
 from models.studentModel import Student
 from models.studentClassModel import StudentClass
 
@@ -25,11 +24,11 @@ class StudentController():
         email = request.json.get('email')
         student_number = request.json.get('student_number')
 
-        existing_student = User.query.filter((User.studentNumber == student_number) | (User.email == email)).first()
+        existing_student = Student.query.filter((Student.student_number == student_number) | (Student.email == email)).first()
         if existing_student is not None:
             return jsonify({'message': 'Error: Dit studentnummer of email bestaat al.'})
 
-        new_student = User(name=name, email=email, studentNumber=student_number, role=1)
+        new_student = Student(name=name, email=email, student_number=student_number)
         db.session.add(new_student)
         db.session.commit()
 
@@ -55,7 +54,7 @@ class StudentController():
         email = request.json.get('email')
         student_number = request.json.get('student_number')
 
-        existing_student = User.query.filter((User.studentNumber == student_number) | (User.email == email)).filter(User.id != id).first()
+        existing_student = Student.query.filter((Student.student_number == student_number) | (Student.email == email)).filter(Student.id != id).first()
         if existing_student is not None:
             return jsonify({'message': 'Error: Dit studentnummer of email bestaat al.'})
 
@@ -65,7 +64,7 @@ class StudentController():
         # Update the student's name, email, and student number
         student.name = name
         student.email = email
-        student.studentNumber = student_number
+        student.student_number = student_number
 
         # Remove any existing StudentClass objects for this student
         student.student_classes = []
