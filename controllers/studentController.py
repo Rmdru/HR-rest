@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid, flash
 from models.userModel import User
-=======
-from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid
 from models.studentModel import Student
 from models.studentClassModel import StudentClass
->>>>>>> lesson_class
 
 
 class StudentController():
@@ -25,7 +21,6 @@ class StudentController():
 
     @staticmethod
     def create_student():
-<<<<<<< HEAD
         name = request.json.get('name')
         email = request.json.get('email')
         student_number = request.json.get('student_number')
@@ -39,21 +34,6 @@ class StudentController():
         db.session.commit()
 
         return jsonify({'message': 'success'})
-=======
-        print(request.form)
-        name = request.form.get('name')
-        email = request.form.get('email')
-        student_number = int(request.form.get('student_number'))
-
-        # Get a list of the selected class IDs from the form data
-        selected_classes = request.form.getlist('classes')
-
-        # Create a new student
-        new_student = Student(name=name, email=email, student_number=student_number)
-
-        # Add the new student to the database
-        db.session.add(new_student)
-        db.session.commit()
 
         # Create StudentClass objects for the selected classes and add them to the pivot table
         for class_id in selected_classes:
@@ -64,7 +44,6 @@ class StudentController():
         db.session.commit()
 
         return redirect(url_for('students_index'))
->>>>>>> lesson_class
 
     @staticmethod
     def update_student(id):
@@ -115,9 +94,9 @@ class StudentController():
         if input != "null":
             search = "%{}%".format(input)
 
-            results = User.query.filter_by(role=1).filter(User.name.like(search))
+            results = Student.query.filter(Student.name.like(search))
         else:
-            results = User.query.filter_by(role=1)
+            results = Student.query.all()
 
         if not results:
             return jsonify({'message': 'No results'}), 404
