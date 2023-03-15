@@ -39,7 +39,8 @@
             <thead style="background-color: black; color: #fff;">
             <tr>
                 <th scope="Name">Naam</th>
-                <th scope="Name">Vraag</th>
+                <th scope="Question">Vraag</th>
+                <th scope="Classes">Klassen</th>
                 <th scope="Date">Datum</th>
                 <th scope="Starttime">Begintijd</th>
                 <th scope="Endtime">Eindtijd</th>
@@ -54,6 +55,12 @@
             <tr>
                 <td>{{ lesson.name }}</td>
                 <td style="max-width: 200px; overflow: hidden">{{ lesson.question }}</td>
+                <td>
+                    {% for class in lesson.classes %}
+                    {{ class.name }}
+                    {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
                 <td>{{ lesson.date }}</td>
                 <td>{{ lesson.start_time }}</td>
                 <td>{{ lesson.end_time }}</td>

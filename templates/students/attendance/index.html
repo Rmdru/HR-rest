@@ -21,7 +21,7 @@
             <tbody>
             {% for attendance in attendances %}
             <tr>
-                <td>{{ attendance.lesson_id }}</td>
+                <td>{{ attendance.lesson.name }}</td>
                 <td>{{ attendance.checkin_time.strftime('%H:%M:%S') }}</td>
                 <td>{{ attendance.mood }}</td>
                 <td>{{ attendance.question_answer }}</td>
@@ -30,8 +30,6 @@
             {% endfor %}
             </tbody>
         </table>
-
-
     </div>
 </div>
 {% endblock %}

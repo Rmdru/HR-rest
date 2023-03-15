@@ -1,5 +1,8 @@
 from __main__ import SQLAlchemy, db, app
 from sqlalchemy.orm import relationship
+import models.lessonClassModel
+from models.classModel import Class
+from models.lessonClassModel import LessonClass
 
 # Define the Lesson model
 class Lesson(db.Model):
@@ -11,6 +14,7 @@ class Lesson(db.Model):
     end_time = db.Column(db.String(200), nullable=False)
 
     attendance_records = relationship('Attendance', backref='lesson_record', cascade='all, delete')
+    classes = relationship('LessonClass', backref=db.backref('lesson_record', lazy=True), cascade='all, delete')
 
     def to_dict(self):
         return {
@@ -20,4 +24,7 @@ class Lesson(db.Model):
             'date': self.date,
             'start_time': self.start_time,
             'end_time': self.end_time,
+            'classes': [{'id': c.class_id,
+                         'name': c.classes.name
+                         } for c in self.classes],
         }

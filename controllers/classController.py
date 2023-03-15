@@ -2,7 +2,7 @@ from __main__ import jsonify, db, request, render_template, redirect, url_for, f
 from models.classModel import Class
 
 
-class classController():
+class ClassController():
 
     @staticmethod
     def get_all_classes():

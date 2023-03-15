@@ -31,14 +31,18 @@ import routes.lessonRoutes
 import routes.attendanceRoutes
 import routes.teacherRoutes
 import routes.studentRoutes
-routes.studentRoutes.setup_student_routes(app)
 import routes.classRoutes
+routes.studentRoutes.setup_student_routes(app)
 routes.lessonRoutes.setup_lesson_routes(app)
 routes.attendanceRoutes.setup_qr_routes(app)
 routes.authRoutes.setup_auth_routes(app)
 routes.teacherRoutes.setup_teacher_routes(app)
 routes.classRoutes.setup_class_routes(app)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> lesson_class
 # Secret key for the session
 app.secret_key = '1335eb3948fb7b64a029aa29'
 
