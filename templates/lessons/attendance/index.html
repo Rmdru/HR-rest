@@ -5,6 +5,7 @@
 
 <div class="container">
     <div class="index pb-4" id="attendance" data-id="{{ id }}">
+        {% include "delete_row_confirmation_modal.html" %}
         <div class="top-content">
             <h1>Aanwezigheid</h1>
             <a href="/lessen_overzicht" class="button">Naar lessen</a>
@@ -27,7 +28,7 @@
                 <td>{{ attended_student.checkin_time.strftime('%H:%M:%S') }}</td>
                 <td>{{ attended_student.mood }}</td>
                 <td>{{ attended_student.question_answer }}</td>
-                <td><a href="" data-id="{{ attended_student.id }}" id="btnDelete" class="red">Verwijderen</a></td>
+                <td><a href="" data-id="{{ attended_student.id }}" class="red showDeleteRowModal" data-toggle="modal" data-target="#deleteRowConfirmation">Verwijderen</a></td>
             </tr>
             {% endfor %}
             </tbody>
@@ -37,7 +38,7 @@
             <thead style="background-color: black; color: #fff;">
             <tr>
                 <th scope="Student">Naam</th>
-                <th scope="Student">Student_id</th>
+                <th scope="Student">Studentnummer</th>
             </tr>
             </thead>
             <tbody>

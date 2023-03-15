@@ -4,6 +4,7 @@
 {% include "navigation.html" %}
 <div class="lessons container">
     <div class="index" id="lessons">
+        {% include "delete_row_confirmation_modal.html" %}
         <div class="top-content">
             <h1><span class="material-icons" style="font-size: 40px;">school</span> Lessen</h1>
             <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModal">Les toevoegen</a>
@@ -66,7 +67,7 @@
                 <td>{{ lesson.end_time }}</td>
                 <td><a href="/check-in/{{ lesson.id }}" class="blue">QR-code</a></td>
                 <td><a href="/lesson/{{ lesson.id }}/aanwezigheid" class="blue">Aanwezigheid</a></td>
-                <td><a href="#" class="red" data-id="{{ lesson.id }}" id="btnDelete">Verwijderen</a></td>
+                <td><a href="#" class="red showDeleteRowModal" data-id="{{ lesson.id }}" data-toggle="modal" data-target="#deleteRowConfirmation">Verwijderen</a></td>
                 <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal"
                        data-target="#lessonModal">Wijzigen</a></td>
             </tr>
