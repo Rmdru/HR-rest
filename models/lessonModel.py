@@ -25,6 +25,6 @@ class Lesson(db.Model):
             'start_time': self.start_time,
             'end_time': self.end_time,
             'classes': [{'id': c.class_id,
-                         'name': c.classes.name
+                         'name': c.classes.name if c.classes else ''
                          } for c in self.classes],
         }

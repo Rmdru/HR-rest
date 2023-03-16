@@ -9,7 +9,7 @@ class Student(db.Model):
     password = db.Column(db.String(255), nullable=True)
     student_number = db.Column(db.Integer, nullable=True)
 
-    classes = relationship('StudentClass', backref=db.backref('student_record', lazy=True), cascade='all, delete')
+    classes = relationship('StudentClass', backref=db.backref('student_record', lazy=True, cascade='all, delete'))
 
     def to_dict(self):
         return {
@@ -19,6 +19,6 @@ class Student(db.Model):
             'password': self.password,
             'student_number': self.student_number,
             'classes': [{'id': c.class_id,
-                         'name': c.classes.name
-                         } for c in self.classes],
+                         'name': c.classes.name if c.classes else None
+                         } for c in self.classes]
         }

@@ -26,5 +26,6 @@ class Attendance(db.Model):
             'status': self.status,
             'mood': self.mood,
             'question_answer': self.question_answer,
+            'student_id': self.student_id,
             'lesson': lesson_obj
         }
