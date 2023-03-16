@@ -4,12 +4,14 @@
 {% include "navigation.html" %}
 
 <div class="container">
-    <div  class="index" id="attendance" data-id="{{ id }}">
+    <div class="index pb-4" id="attendance" data-id="{{ id }}">
+        {% include "delete_row_confirmation_modal.html" %}
         <div class="top-content">
             <h1>Aanwezigheid</h1>
             <a href="/lessen_overzicht" class="button">Naar lessen</a>
         </div>
-        <table class="table">
+        <h2 class="mt-5 mb-3">Aanwezig</h2>
+        <table class="table text-success">
             <thead style="background-color: black; color: #fff;">
             <tr>
                 <th scope="Student">Student</th>
@@ -20,14 +22,33 @@
             </tr>
             </thead>
             <tbody>
-            {% for attendance in attendances %}
+            {% for attended_student in attended_students %}
             <tr>
-                <td>{{ attendance.student_id }}</td>
-                <td>{{ attendance.checkin_time.strftime('%H:%M:%S') }}</td>
-                <td>{{ attendance.mood }}</td>
-                <td>{{ attendance.question_answer }}</td>
-                <td><a href="" data-id="{{ attendance.id }}" id="btnDelete" class="red">Verwijderen</a></td>
+                <td>{{ attended_student.name }}</td>
+                <td>{{ attended_student.checkin_time.strftime('%H:%M:%S') }}</td>
+                <td>{{ attended_student.mood }}</td>
+                <td>{{ attended_student.question_answer }}</td>
+                <td><a href="" data-id="{{ attended_student.id }}" class="red showDeleteRowModal" data-toggle="modal" data-target="#deleteRowConfirmation">Verwijderen</a></td>
             </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <h2 class="mt-5 mb-3">Nog niet aanwezig</h2>
+        <table class="absent-table table pb-5 text-danger">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Student">Naam</th>
+                <th scope="Student">Studentnummer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for absent_student in absent_students %}
+            {% if absent_student.name and absent_student.id %}
+            <tr data-id="{{ absent_student.id }}">
+                <td>{{ absent_student.name }}</td>
+                <td>{{ absent_student.id }}</td>
+            </tr>
+            {% endif %}
             {% endfor %}
             </tbody>
         </table>

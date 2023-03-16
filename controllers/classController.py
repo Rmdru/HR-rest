@@ -1,8 +1,8 @@
-from __main__ import jsonify, db, request, render_template, redirect, url_for
+from __main__ import jsonify, db, request, render_template, redirect, url_for, flash
 from models.classModel import Class
 
 
-class classController():
+class ClassController():
 
     @staticmethod
     def get_all_classes():
@@ -22,6 +22,10 @@ class classController():
         name = request.form.get('name')
 
         new_class = Class(name=name)
+
+        if Class.query.filter((Class.name == name)).first() is not None:
+            flash("Error: Deze klas bestaat al.")
+            return redirect(url_for('students_index'))
 
         db.session.add(new_class)
         db.session.commit()
@@ -51,4 +55,16 @@ class classController():
         db.session.commit()
         return '', 204
 
+    @staticmethod
+    def filter_classes(input):
+        if input != "null":
+            search = "%{}%".format(input)
 
+            results = Class.query.filter(Class.name.like(search))
+        else:
+            results = Class.query.all()
+
+        if not results:
+            return jsonify({'message': 'No results'}), 404
+        results_dict = [result.to_dict() for result in results]
+        return results_dict

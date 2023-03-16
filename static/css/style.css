@@ -147,7 +147,7 @@
 
 .qrcode {
     text-align: center;
-    height: 100vh;
+    padding: 70px 0 60px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -166,4 +166,8 @@
     padding: 20px;
     border-radius: 6px;
     color: var(--textColor);
+}
+
+.material-icons {
+    vertical-align: middle;
 }

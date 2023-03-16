@@ -36,6 +36,7 @@ export default class Attendance {
             var btnSubmit = document.getElementById("btnSubmit");
             btnSubmit.addEventListener("click", (i) => {
                 var id = btnSubmit.getAttribute("data-id");
+                var name = document.getElementById("inputName").value;
                 var student_id = document.getElementById("inputStudentNumber").value;
                 var question_answer = document.getElementById("inputQuestion");
                 var mood = document.getElementById("selectMood").value;
@@ -44,6 +45,7 @@ export default class Attendance {
 
                 const checkinData = {
                     uuid: id,
+                    name: name,
                     student_id: student_id,
                     question_answer: question_answer_value,
                     mood: mood
@@ -57,6 +59,7 @@ export default class Attendance {
         if (document.querySelector("#attendance") != null) {
             var socket = io.connect();
             var uuid = document.querySelector("#attendance").getAttribute("data-id");
+            var absentRows = document.querySelectorAll(".absent-table tbody tr");
 
             socket.on('attendance', function (data) {
                 if (data.uuid === uuid) {
@@ -68,11 +71,18 @@ export default class Attendance {
                     const cell3 = row.insertCell(2);
                     const cell4 = row.insertCell(3);
                     const cell5 = row.insertCell(4);
-                    cell1.innerHTML = data.student_id;
+                    cell1.innerHTML = data.name;
                     cell2.innerHTML = data.checkin_time;
                     cell3.innerHTML = data.mood;
                     cell4.innerHTML = data.question_answer;
                     cell5.innerHTML = `<a href="/attendances/${data.uuid}" class="red" data-method="delete" data-confirm="Weet je het zeker?">Verwijderen</a>`;
+
+                    // Remove the row with the absent student's ID
+                    absentRows.forEach(function (row) {
+                        if (row.getAttribute("data-id") === data.student_id) {
+                            row.remove();
+                        }
+                    });
                 }
             });
         }

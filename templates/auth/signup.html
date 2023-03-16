@@ -25,25 +25,45 @@
                                  style="max-width: 250px" class="mb-5" alt="">
                         </div>
                         {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                <div class="alert alert-danger" role="alert">
-                                    {{ messages[0] }}
-                                </div>
-                            {% endif %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ messages[0] }}
+                        </div>
+                        {% endif %}
                         {% endwith %}
+                        <div class="form-group">
+                            <label class="form-label font-weight-bold text-white" for="roleSelection">Ik ben een</label>
+                            <select class="form-control" id="roleSelection">
+                                <option value="teacher">Docent</option>
+                                <option value="student">Student</option>
+                            </select>
+                        </div>
                         <form action="/signupReq" method="POST">
-                            <div class="form-outline mb-4">
-                                <label class="form-label font-weight-bold text-white" for="typeEmailX-2">Naam</label>
-                                <input type="text" id="typeEmailX-2" name="name" class="form-control form-control-lg"/>
+                            <div id="teacher">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label font-weight-bold text-white"
+                                           for="typeEmailX-2">Naam</label>
+                                    <input type="text" id="typeNameX-2" name="name"
+                                           class="form-control form-control-lg"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label font-weight-bold text-white"
+                                           for="typeEmailX-2">Email</label>
+                                    <input type="email" id="typeEmailX-2" name="email"
+                                           class="form-control form-control-lg"/>
+                                </div>
+                            </div>
+                            <div id="student" style="display: none">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label font-weight-bold text-white"
+                                           for="typeEmailX-2">Studentnummer</label>
+                                    <input type="text" id="typeNummerX-2" name="nummer"
+                                           class="form-control form-control-lg"/>
+                                </div>
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label font-weight-bold text-white" for="typeEmailX-2">Email</label>
-                                <input type="email" id="typeEmailX-2" name="email"
-                                       class="form-control form-control-lg"/>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <label class="form-label font-weight-bold  text-white" for="typePasswordX-2">Wachtwoord</label>
+                                <label class="form-label font-weight-bold  text-white"
+                                       for="typePasswordX-2">Wachtwoord</label>
                                 <input type="password" id="typePasswordX-2" name="password"
                                        class="form-control form-control-lg"/>
                             </div>
@@ -58,6 +78,6 @@
     </div>
 </section>
 </body>
-
+<script src="./static/js/signup.js"></script>
 </html>
 

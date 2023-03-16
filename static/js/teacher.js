@@ -3,7 +3,8 @@ export default class Teacher {
     constructor() {
         this.deleteFunction();
         this.getTeacherInfo();
-        this.removeTeacherInfo()
+        this.removeTeacherInfo();
+        this.filterTeacher();
     }
 
     deleteFunction() {
@@ -34,7 +35,6 @@ export default class Teacher {
         if (document.querySelector("#teachers") != null) {
             // Select all edit modal buttons
             const editModalBtns = document.querySelectorAll("#btnEdit");
-
             // Loop through each button
             editModalBtns.forEach((item) => {
                 // Add click event listener to each button
@@ -71,7 +71,7 @@ export default class Teacher {
     }
 
     removeTeacherInfo() {
-        if (document.querySelector("#students") != null) {
+        if (document.querySelector("#teachers") != null) {
             const creatBtn = document.querySelector('#btnCreate');
 
             if (creatBtn != null) {
@@ -91,6 +91,59 @@ export default class Teacher {
                     emailInput.value = '';
                     // classInput.value = '';
                 })
+            }
+        }
+    }
+
+    //Filter for teachers
+    filterTeacher() {
+        if (document.querySelector("#teachers") != null) {
+            const filterInput = document.querySelector("#filterAccordion input");
+
+            var filterTeacher = function () {
+                //get filter input
+                var input = document.getElementById("filterName").value;
+                
+                if (input == "") {
+                    input = null;
+                }
+
+                //send request with axios
+                axios.get("/teacher/filter/" + input).then((response) => {
+                    const results = response.data;
+                    // check if the data is present in the response
+                    if (results) {
+                        // Get the element
+                        let el = document.querySelector(".table tbody");
+
+                        //Create empty output var
+                        let output = "";
+
+                        //Show results in table
+                        for (let i in results) {
+                            output += "<tr>";
+                                let id = results[i].id;
+                                let name = results[i].name;
+                                let email = results[i].email;
+
+                                output += `<td>${name}</td>`;
+                                output += `<td>${email}</td>`;
+                                output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
+                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#teacherModal">Wijzigen</a></td>`;
+                            output += "</tr>";
+                        }
+
+                        el.innerHTML = output;
+                    } else {
+                        console.error("No data found in the response");
+                    }
+                });
+            }
+
+            //Event listeners
+            if (filterInput != null) {
+                filterInput.addEventListener('keyup', filterTeacher, false);
+                filterInput.addEventListener('change', filterTeacher, false);
             }
         }
     }

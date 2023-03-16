@@ -28,9 +28,10 @@ class AttendanceController():
         return render_template('/lessons/attendance/succes.html')
 
     @staticmethod
-    def delete_attendance(id):
-        attendance = Attendance.query.get(id)
-        print(attendance)
+    def delete_attendance(student_number):
+        attendance = Attendance.query.filter_by(student_id=student_number).first()
+        if not attendance:
+            return jsonify({'message': 'Attendance not found'}), 404
         db.session.delete(attendance)
         db.session.commit()
         return '', 204

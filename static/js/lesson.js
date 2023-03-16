@@ -4,6 +4,7 @@ export default class Lesson {
         this.getLessonInfo();
         this.removeLessonInfo()
         this.initializeDatePicker();
+        this.filterLessons();
     }
 
     deleteFunction() {
@@ -105,6 +106,103 @@ export default class Lesson {
         }
     }
 
+    //Filter for lessons
+    filterLessons() {
+        //init datepicker for this filter
+        const dateInputsFilter = document.querySelectorAll('.datepickerFilter');
+
+        if (dateInputsFilter != null) {
+            dateInputsFilter.forEach((input) => {
+                const picker = new Pikaday({
+                    field: input,
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                    onSelect: function (field) {
+                        field.value = this.getMoment().format('YYYY-MM-DD HH:mm:ss');
+                        filterLessons();
+                    }
+                });
+            });
+        }
+
+        if (document.querySelector("#lessons") != null) {
+            const filterInput = document.querySelector("#filterAccordion input");
+
+            var filterLessons = function () {
+                //get filter input
+                var name = document.getElementById("filterName").value;
+                var startDate = document.getElementById("filterStartDate").value;
+                var endDate = document.getElementById("filterEndDate").value;
+                
+                //check if inputs are empty
+                if (name == "") {
+                    name = null;
+                }
+                
+                if (startDate == "") {
+                    startDate = null;
+                }
+                
+                if (endDate == "") {
+                    endDate = null;
+                }
+
+                //send request with axios
+                axios.get(`/lessons/filter/${name}/${startDate}/${endDate}`).then((response) => {
+                    const results = response.data;
+                    // check if the data is present in the response
+                    if (results) {
+                        // Get the element
+                        let el = document.querySelector(".table tbody");
+
+                        //Create empty output var
+                        let output = "";
+
+                        //Show results in table
+                        for (let i in results) {
+                            output += "<tr>";
+                                let id = results[i].id;
+                                let classes = results[i].classes;
+                                let name = results[i].name;
+                                let question = results[i].question;
+                                let date = results[i].date;
+                                let start_time = results[i].start_time;
+                                let end_time = results[i].end_time;
+
+                                output += `<td>${name}</td>`;
+                                output += `<td>${question}</td>`;
+                                output += "<td>";
+                                for (i in classes) {
+                                    output += classes[i].name;
+                                    if (i < classes.length - 1) {
+                                        output += ", ";
+                                    }
+                                }
+                                output += "</td>";
+                                output += `<td>${date}</td>`;
+                                output += `<td>${start_time}</td>`;
+                                output += `<td>${end_time}</td>`;
+                                output += `<td><a href="/check-in/${id}" class="blue">QR-code</a></td>`;
+                                output += `<td><a href="/lessons/${id}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
+                                output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
+                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#lessonModal">Wijzigen</a></td>`;
+                            output += "</tr>";
+                        }
+
+                        el.innerHTML = output;
+                    } else {
+                        console.error("No data found in the response");
+                    }
+                });
+            }
+
+            //Event listeners
+            if (filterInput != null) {
+                filterInput.addEventListener('keyup', filterLessons, false);
+                filterInput.addEventListener('change', filterLessons, false);
+            }
+        }
+    }
+
     initializeDatePicker() {
         if (document.querySelector("#lessons") != null) {
             const dateInputs = document.querySelectorAll('.datepicker');
@@ -113,9 +211,10 @@ export default class Lesson {
                 dateInputs.forEach((input) => {
                     const picker = new Pikaday({
                         field: input,
-                        format: 'DD/MM/YYYY',
+                        format: 'YYYY-MM-DD HH:mm:ss',
                         minDate: new Date(),
-                        onSelect: function () {
+                        onSelect: function (field) {
+                            field.value = this.getMoment().format('YYYY-MM-DD HH:mm:ss');
                             console.log(input.value = this.toString());
                         }
                     });

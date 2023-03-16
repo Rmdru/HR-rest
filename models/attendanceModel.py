@@ -16,18 +16,16 @@ class Attendance(db.Model):
     student_id = db.Column(Integer, ForeignKey('user.id'), nullable=False)
     lesson_id = db.Column(db.String(255), ForeignKey('lesson.id'), nullable=False)
 
-    student = relationship('User', backref='attendance')
     lesson = relationship('Lesson', backref='attendance_list')
 
     def to_dict(self):
-        student_id = self.student_id
-        lesson_obj = self.lesson.id if self.lesson else None
+        lesson_obj = self.lesson.to_dict() if self.lesson else None
         return {
             'id': self.id,
             'checkin_time': self.checkin_time,
             'status': self.status,
             'mood': self.mood,
             'question_answer': self.question_answer,
-            'student_id': student_id,
-            'lesson_id': lesson_obj
+            'student_id': self.student_id,
+            'lesson': lesson_obj
         }
