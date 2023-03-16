@@ -60,7 +60,7 @@ def setup_auth_routes(app):
                 flash('Studentnummer niet gevonden')
                 return redirect(url_for('signup'))
             password = request.form.get("password")
-            student.password = password
+            student.password = generate_password_hash(password, method='sha256')
             db.session.commit()
 
         return redirect(url_for('login'))
@@ -74,16 +74,20 @@ def setup_auth_routes(app):
         user = User.query.filter_by(email=email).first()
 
         if not user or not check_password_hash(user.password, password):
-            flash('Controleer uw inloggegevens en probeer het opnieuw.')
-            return redirect(url_for('login'))
+            student = Student.query.filter_by(email=email).first()
+            if not student or not check_password_hash(student.password, password):
+                flash('Controleer uw inloggegevens en probeer het opnieuw.')
+                return redirect(url_for('login'))
+            else:
+                login_user(student)
+                session['user_id'] = student.id
+                session['user_role'] = 1
+                return redirect(url_for('lessons_index'))
 
-        login_user(user)
-
-        if user.role == 1:
-            return redirect(url_for('lessons_index'))
         else:
+            login_user(user)
             session['user_id'] = user.id
-
+            session['user_role'] = 2
             return redirect(url_for('index'))
 
     # Get user id of current logged in user
@@ -92,7 +96,10 @@ def setup_auth_routes(app):
         id = session['user_id']
         user = User.query.get(id)
         if not user:
-            return jsonify({'message': 'User not found'}), 404
+            user = Student.query.filter_by(id=id).first()
+            if not user:
+                return jsonify({'message': 'User not found'}), 404
+
         return jsonify({'user': user.to_dict()}), 200
 
     # Het

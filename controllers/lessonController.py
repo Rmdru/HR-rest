@@ -1,4 +1,4 @@
-from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid, flash
+from __main__ import jsonify, db, request, render_template, redirect, url_for, uuid, flash, session
 from models.lessonModel import Lesson
 from models.lessonClassModel import LessonClass
 
@@ -30,7 +30,8 @@ class LessonController():
         # Get a list of the selected class IDs from the form data
         selected_classes = request.form.getlist('classes')
         print(selected_classes)
-        new_lesson = Lesson(id=lesson_id, name=name, question=question, date=date, start_time=start_time, end_time=end_time)
+        new_lesson = Lesson(id=lesson_id, name=name, question=question, date=date, start_time=start_time,
+                            end_time=end_time)
 
         if Lesson.query.filter((Lesson.name == name)).first() is not None:
             flash("Error: Deze les bestaat al.")
@@ -100,7 +101,8 @@ class LessonController():
             endDate = endDate.replace("%20", " ")
 
             if startDate != "null" and endDate != "null":
-                results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date.between(startDate, endDate))
+                results = Lesson.query.filter(Lesson.name.like(searchName)).filter(
+                    Lesson.date.between(startDate, endDate))
             elif startDate != "null":
                 results = Lesson.query.filter(Lesson.name.like(searchName)).filter(Lesson.date >= startDate)
             elif endDate != "null":
@@ -113,4 +115,6 @@ class LessonController():
         if not results:
             return jsonify({'message': 'No results'}), 404
         results_dict = [result.to_dict() for result in results]
+        for result in results_dict:
+            result["user_role"] = session["user_role"]
         return results_dict
