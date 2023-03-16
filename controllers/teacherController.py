@@ -19,20 +19,20 @@ class TeacherController():
 
     @staticmethod
     def create_teacher():
-        name = request.form.get('name')
-        email = request.form.get('email')
+        name = request.json.get('name')
+        email = request.json.get('email')
         teacher_id = str(uuid.uuid4())
 
-        new_teacher = User(id=teacher_id, name=name, email=email, role=2)
+        existing_student =  User.query.filter((User.email == email)).first()
+        if existing_student is not None:
+            return jsonify({'message': 'Error: Een docent met deze email bestaat al.'})
 
-        if User.query.filter((User.email == email)).first() is not None:
-            flash("Error: Een docent met deze email bestaat al.")
-            return redirect(url_for('teachers_index'))
+        new_teacher = User(id=teacher_id, name=name, email=email, role=2)
 
         db.session.add(new_teacher)
         db.session.commit()
 
-        return redirect(url_for('teachers_index'))
+        return jsonify({'message' : 'success'})
 
     @staticmethod
     def update_teacher(id):
@@ -40,15 +40,19 @@ class TeacherController():
         if not teacher:
             return jsonify({'message': 'Teacher not found'}), 404
 
-        name = request.form.get('name')
-        email = request.form.get('email')
+        existing_student =  User.query.filter((User.email == email)).filter(User.id != id).first()
+        if existing_student is not None:
+            return jsonify({'message': 'Error: Een docent met deze email bestaat al.'})
+
+        name = request.json.get('name')
+        email = request.json.get('email')
 
         teacher.name = name
         teacher.email = email
 
         db.session.commit()
 
-        return redirect(url_for('teachers_index'))
+        return jsonify({'message': 'success'})
 
     @staticmethod
     def delete_teacher(id):

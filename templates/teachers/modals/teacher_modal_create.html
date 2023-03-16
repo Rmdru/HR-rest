@@ -1,22 +1,16 @@
 <!-- Modal -->
-<div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="teacherModalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="color:#272727;">Les wijzigen</h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="color:#272727;">Docent toevoegen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <div class="alert alert-danger" role="alert">
-                            {{ messages[0] }}
-                        </div>
-                    {% endif %}
-                {% endwith %}
+             <div class="error"></div>
                 <form action="/teachers/" method="post" id="teacherForm">
                     <input type="hidden" id="inputId" name="id">
                     <div class="form-group">
@@ -27,15 +21,11 @@
                         <label for="inputEmail">Email</label>
                         <input type="text" name="email" required class="form-control" id="inputEmail">
                     </div>
-<!--                    <div class="form-group">-->
-<!--                        <label for="inputClass">Vak</label>-->
-<!--                        <input type="text" name="name" required class="form-control" id="inputClass">-->
-<!--                    </div>-->
                     <div class="modal-footer mt-4 px-0">
                         <button type="button" class="btn" style="background: #D30E4C; color: white"
                                 data-dismiss="modal">Close
                         </button>
-                        <button type="submit" id="btnEdit" class="btn" style="background: #3CAAD7;  color: white">Save
+                        <button type="button" id="saveBtn" class="btn" style="background: #3CAAD7;  color: white">Save
                             changes
                         </button>
                     </div>

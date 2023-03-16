@@ -5,6 +5,8 @@ export default class Teacher {
         this.getTeacherInfo();
         this.removeTeacherInfo();
         this.filterTeacher();
+        this.createTeacher();
+        this.updateTeacher();
     }
 
     deleteFunction() {
@@ -47,20 +49,20 @@ export default class Teacher {
                         // check if the data is present in the response
                         if (teacher) {
                             // Get the modal element
-                            const modal = document.getElementById("teacherModal");
+                            const modal = document.getElementById("teacherModalUpdate");
 
                             // Update the form action to include the ID
-                            document.querySelector("#teacherForm").action = `/teachers/${rowId}`;
+                            document.querySelector("#teacherModalUpdate #teacherForm").action = `/teachers/${rowId}`;
 
                             // Get the form input elements
                             const nameInput = modal.querySelector("#inputName");
                             const emailInput = modal.querySelector("#inputEmail");
-                            // const classInput = modal.querySelector("#inputClass");
+                            const errorMessage = modal.querySelector(".error");
 
                             // Set the value of the input elements to the values from the response data
                             nameInput.value = teacher.name;
                             emailInput.value = teacher.email;
-                            // classInput.value = teacher.class;
+                            errorMessage.innerHTML = "";
                         } else {
                             console.error("No data found in the response");
                         }
@@ -83,13 +85,13 @@ export default class Teacher {
                     // Get the form input elements
                     const nameInput = modal.querySelector("#inputName");
                     const emailInput = modal.querySelector("#inputEmail");
-                    // const classInput = modal.querySelector("#inputClass");
+                    const errorMessage = modal.querySelector(".error");
 
 
                     // Set the value of the input elements to the values from the response data
                     nameInput.value = '';
                     emailInput.value = '';
-                    // classInput.value = '';
+                    errorMessage.innerHTML = '';
                 })
             }
         }
@@ -145,6 +147,102 @@ export default class Teacher {
                 filterInput.addEventListener('keyup', filterTeacher, false);
                 filterInput.addEventListener('change', filterTeacher, false);
             }
+        }
+    }
+
+    createTeacher() {
+        if (document.getElementById("teacherModalCreate") != null) {
+            const creatBtn = document.querySelector('#saveBtn');
+            creatBtn.addEventListener('click', () => {
+                // Get the modal element
+                const modal = document.getElementById("teacherModalCreate");
+
+                // Get the form input elements
+                const nameInput = modal.querySelector("#inputName").value;
+                const emailInput = modal.querySelector("#inputEmail").value;
+
+                let error = 0;
+
+                if (nameInput == '' || emailInput == '') { 
+                    error++;
+                }
+
+                if (emailInput.indexOf("@") == -1 || emailInput.indexOf(".") == -1) {
+                    error++;
+                }
+
+                if (error == 0) {
+                    axios.post('/teachers/', {
+                        name: nameInput,
+                        email: emailInput,
+                    })
+                    .then((response) => {
+                        const result = response.data;
+                        if (result) {
+                            if (result.message == 'Error: Een docent met deze email bestaat al.') {
+                                let output = '<div class="alert alert-danger" role="alert">Error: Een docent met deze email bestaat al.</div>';
+                                document.querySelector('.error').innerHTML = output;
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    })
+                } else {
+                    let output = '<div class="alert alert-danger" role="alert">Error: Zorg dat je alle velden goed invult.</div>';
+                    document.querySelector('.error').innerHTML = output;
+                }
+            })
+        }
+    }
+
+    updateTeacher() {
+        if (document.getElementById("teacherModalUpdate") != null) {
+            const creatBtn = document.querySelector('#teacherModalUpdate #saveBtn');
+            creatBtn.addEventListener('click', () => {
+                // Get the modal element
+                const modal = document.getElementById("teacherModalUpdate");
+               
+                // Get the form element
+                const teacherForm = document.querySelector("#teacherModalUpdate #teacherForm");
+
+                // Get the ID from the form action attribute
+                const rowId = teacherForm.getAttribute("action").split("/")[2];
+   
+                // Get the form input elements
+                const nameInput = modal.querySelector("#inputName").value;
+                const emailInput = modal.querySelector("#inputEmail").value;
+                
+                let error = 0;
+
+                if (nameInput == '' || emailInput == '') { 
+                    error++;
+                }
+
+                if (emailInput.indexOf("@") == -1 || emailInput.indexOf(".") == -1) {
+                    error++;
+                }
+
+                if (error == 0) {
+                    axios.post('/teachers/' + rowId, {
+                        name: nameInput,
+                        email: emailInput
+                    })
+                    .then((response) => {
+                        const result = response.data;
+                        if (result) {
+                            if (result.message == 'Error: Een docent met deze email bestaat al.') {
+                                let output = '<div class="alert alert-danger" role="alert">Error: Een docent met deze email bestaat al.</div>';
+                                document.querySelector('#teacherModalUpdate .error').innerHTML = output;
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    })
+                } else {
+                    let output = '<div class="alert alert-danger" role="alert">Error: Zorg dat je alle velden goed invult.</div>';
+                    document.querySelector('.error').innerHTML = output;
+                }
+            })
         }
     }
 }
