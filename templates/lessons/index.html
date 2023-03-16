@@ -1,46 +1,94 @@
-{% include "layout.html" %}
+`{% include "layout.html" %}
 {% include "/lessons/lesson_model.html" %}
 {% block content %}
-{% include "navigation.html" %}
-<div class="lessons container">
-    <div class="index" id="lessons">
-        <div class="top-content">
-            <h1>Lessen</h1>
-            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModal">Les toevoegen</a>
+    {% include "navigation.html" %}
+    <div class="lessons container">
+        <div class="index" id="lessons">
+            <div class="top-content">
+                <h1><span class="material-icons" style="font-size: 40px;">school</span> Lessen</h1>
+                {% if current_user.role != 1 %}
+                    <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModal">Les
+                        toevoegen</a>
+                {% endif %}
+            </div>
+            <div class="accordion mb-5" id="filterAccordion">
+                <div class="card">
+                    <div class="card-header" id="filterAccordionHeader">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left text-dark" type="button"
+                                    data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                <span class="material-icons">filter_alt</span>Filters
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="filterAccordionHeader"
+                         data-parent="#filterAccordion">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="filterName">Naam</label>
+                                <input type="text" name="name" required class="form-control w-25" id="filterName">
+                            </div>
+                            <div class="form-group">
+                                <label for="filterStartDate">Begin datum</label>
+                                <input type="text" name="date" required class="form-control datepickerFilter w-25"
+                                       autocomplete="off" id="filterStartDate"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="filterEndDate">Eind datum</label>
+                                <input type="text" name="date" required class="form-control datepickerFilter w-25"
+                                       autocomplete="off" id="filterEndDate"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <thead style="background-color: black; color: #fff;">
+                <tr>
+                    <th scope="Name">Naam</th>
+                    <th scope="Question">Vraag</th>
+                    <th scope="Classes">Klassen</th>
+                    <th scope="Date">Datum</th>
+                    <th scope="Starttime">Begintijd</th>
+                    <th scope="Endtime">Eindtijd</th>
+                    {% if current_user.role != 1 %}
+                        <th scope="QR">QR</th>
+                        <th scope="Attendance">Aanwezigheid</th>
+                        <th scope="Delete">Verwijderen</th>
+                        <th scope="Change">Wijzigen</th>
+                    {% endif %}
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for lesson in lessons %}
+                    <tr>
+                        <td>{{ lesson.name }}</td>
+                        <td style="max-width: 200px; overflow: hidden">{{ lesson.question }}</td>
+                        <td>
+                            {% for class in lesson.classes %}
+                                {{ class.name }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ lesson.date }}</td>
+                        <td>{{ lesson.start_time }}</td>
+                        <td>{{ lesson.end_time }}</td>
+                        {% if current_user.role != 1 %}
+                            <td><a href="/check-in/{{ lesson.id }}" class="blue">QR-code</a></td>
+                            <td><a href="/lesson/{{ lesson.id }}/aanwezigheid" class="blue">Aanwezigheid</a></td>
+                            <td><a href="#" class="red" data-id="{{ lesson.id }}" id="btnDelete">Verwijderen</a></td>
+                            <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal"
+                                   data-target="#lessonModal">Wijzigen</a></td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
         </div>
-        <table class="table">
-            <thead style="background-color: black; color: #fff;">
-            <tr>
-                <th scope="Name">Naam</th>
-                <th scope="Name">Vraag</th>
-                <th scope="Date">Datum</th>
-                <th scope="Starttime">Begintijd</th>
-                <th scope="Endtime">Eindtijd</th>
-                <th scope="QR">QR</th>
-                <th scope="Attendance">Aanwezigheid</th>
-                <th scope="Delete">Verwijderen</th>
-                <th scope="Change">Wijzigen</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for lesson in lessons %}
-            <tr>
-                <td>{{ lesson.name }}</td>
-                <td style="max-width: 200px; overflow: hidden">{{ lesson.question }}</td>
-                <td>{{ lesson.date }}</td>
-                <td>{{ lesson.start_time }}</td>
-                <td>{{ lesson.end_time }}</td>
-                <td><a href="/check-in/{{ lesson.id }}">QR-code</a></td>
-                <td><a href="/lesson/{{ lesson.id }}/aanwezigheid">Aanwezigheid</a></td>
-                <td><a href="#" class="red" data-id="{{ lesson.id }}" id="btnDelete">Verwijderen</a></td>
-                <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal"
-                       data-target="#lessonModal">Wijzigen</a></td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-
     </div>
-</div>
 {% endblock %}
