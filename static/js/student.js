@@ -130,10 +130,19 @@ export default class Student {
                                 let name = results[i].name;
                                 let email = results[i].email;
                                 let studentNumber = results[i].student_number;
+                                let classes = results[i].classes;
 
                                 output += `<td>${name}</td>`;
                                 output += `<td>${email}</td>`;
                                 output += `<td>${studentNumber}</td>`;
+                                output += "<td>";
+                                for (i in classes) {
+                                    output += classes[i].name;
+                                    if (i < classes.length - 1) {
+                                        output += ", ";
+                                    }
+                                }
+                                output += "</td>";
                                 output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
                                 output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>`;
                                 output += `<td><a href="/students/${studentNumber}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
