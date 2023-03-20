@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </a>
-                {% if current_user.role != 2 %}
+                {% if session["user_role"] == 3 %}
                 <a href="/docenten_overzicht" class="item">
                     <span class="fa-solid fa-person-chalkboard tileIcon"></span>
                     <div class="flex">
