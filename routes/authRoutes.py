@@ -1,7 +1,9 @@
 from __main__ import app, render_template, request, \
     SQLAlchemy, os, UserMixin, flash, redirect, url_for, \
-    generate_password_hash, check_password_hash, login_user, logout_user, LoginManager, login_required, db, session, jsonify
+    generate_password_hash, check_password_hash, login_user, logout_user, LoginManager, login_required, db, session, \
+    jsonify
 from models.userModel import User
+from models.studentModel import Student
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -33,22 +35,33 @@ def setup_auth_routes(app):
         email = request.form.get('email')
         name = request.form.get('name')
         password = request.form.get('password')
+        studentnr = request.form.get('nummer')
 
         user = User.query.filter_by(email=email).first()
 
-        if user:
-            flash('Email is al in gebruik')
-            return redirect(url_for('signup'))
+        if studentnr == '':
+            if user:
+                flash('Email is al in gebruik')
+                return redirect(url_for('signup'))
 
-        if name == '':
-            flash('Vul alle velden in')
-            return redirect(url_for('signup'))
+            if name == '':
+                flash('Vul alle velden in')
+                return redirect(url_for('signup'))
 
-        new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), role=0,
-                        studentNumber=None)
+            new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), role=0,
+                            studentNumber=None)
+            db.session.add(new_user)
+            db.session.commit()
 
-        db.session.add(new_user)
-        db.session.commit()
+        else:
+            student = Student.query.filter_by(student_number=studentnr).first()
+            print(studentnr)
+            if not student:
+                flash('Studentnummer niet gevonden')
+                return redirect(url_for('signup'))
+            password = request.form.get("password")
+            student.password = generate_password_hash(password, method='sha256')
+            db.session.commit()
 
         return redirect(url_for('login'))
 
@@ -61,25 +74,32 @@ def setup_auth_routes(app):
         user = User.query.filter_by(email=email).first()
 
         if not user or not check_password_hash(user.password, password):
-            flash('Controleer uw inloggegevens en probeer het opnieuw.')
-            return redirect(url_for('login'))
+            student = Student.query.filter_by(email=email).first()
+            if not student or not check_password_hash(student.password, password):
+                flash('Controleer uw inloggegevens en probeer het opnieuw.')
+                return redirect(url_for('login'))
+            else:
+                login_user(student)
+                session['user_id'] = student.id
+                session['user_role'] = 1
+                return redirect(url_for('lessons_index'))
 
-        login_user(user)
-        
-        if user.role == 1:
-            return redirect(url_for('lessons_index'))
         else:
+            login_user(user)
             session['user_id'] = user.id
-
+            session['user_role'] = 2
             return redirect(url_for('index'))
-    
+
     # Get user id of current logged in user
     @app.route('/user/user-id', methods=["GET"])
     def user_id():
         id = session['user_id']
         user = User.query.get(id)
         if not user:
-            return jsonify({'message': 'User not found'}), 404
+            user = Student.query.filter_by(id=id).first()
+            if not user:
+                return jsonify({'message': 'User not found'}), 404
+
         return jsonify({'user': user.to_dict()}), 200
 
     # Het

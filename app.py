@@ -42,7 +42,6 @@ routes.classRoutes.setup_class_routes(app)
 # Secret key for the session
 app.secret_key = '1335eb3948fb7b64a029aa29'
 
-
 # This route will redirect to the login route
 @app.route("/")
 def start():
@@ -52,7 +51,7 @@ def start():
 @app.route("/index")
 def index():
     return render_template(
-        "index.html", name=current_user.name
+        "index.html"
     )
 
 if __name__ == "__main__":
