@@ -43,6 +43,29 @@
                 </div>
             </div>
         </div>
+        {% if session["user_role"] == 1 %}
+        <table class="table">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Name">Naam</th>
+                <th scope="Date">Datum</th>
+                <th scope="Starttime">Begintijd</th>
+                <th scope="Endtime">Eindtijd</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for lesson in class_lessons %}
+            <tr>
+                <td>{{ lesson.name }}</td>
+                <td>{{ lesson.date }}</td>
+                <td>{{ lesson.start_time }}</td>
+                <td>{{ lesson.end_time }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if session["user_role"] == 2 %}
         <table class="table">
             <thead style="background-color: black; color: #fff;">
             <tr>
@@ -52,13 +75,10 @@
                 <th scope="Date">Datum</th>
                 <th scope="Starttime">Begintijd</th>
                 <th scope="Endtime">Eindtijd</th>
-                {% if session["user_role"] == 2 %}
                 <th scope="QR">QR</th>
                 <th scope="Attendance">Aanwezigheid</th>
                 <th scope="Delete">Verwijderen</th>
                 <th scope="Change">Wijzigen</th>
-                {% endif %}
-
             </tr>
             </thead>
             <tbody>
@@ -75,19 +95,17 @@
                 <td>{{ lesson.date }}</td>
                 <td>{{ lesson.start_time }}</td>
                 <td>{{ lesson.end_time }}</td>
-                {% if session["user_role"] == 2 %}
                 <td><a href="/check-in/{{ lesson.id }}" class="blue">QR-code</a></td>
                 <td><a href="/lesson/{{ lesson.id }}/aanwezigheid">Aanwezigheid</a></td>
                 <td><a href="#" class="red showDeleteRowModal" data-id="{{ lesson.id }}" data-toggle="modal"
                        data-target="#deleteRowConfirmation">Verwijderen</a></td>
                 <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal"
                        data-target="#lessonModal">Wijzigen</a></td>
-                {% endif %}
             </tr>
             {% endfor %}
             </tbody>
         </table>
-
+        {% endif %}
 
     </div>
 </div>
