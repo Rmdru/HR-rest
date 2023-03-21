@@ -1,12 +1,13 @@
 {% include "layout.html" %}
-{% include "/classes/class_modal.html" %}
+{% include "/classes/modals/class_modal_create.html" %}
+{% include "/classes/modals/class_modal_update.html" %}
 {% block content %}
 {% include "navigation.html" %}
 <div class="container">
     <div class="index" id="classes">
         <div class="top-content">
             <h1>Klassen</h1>
-            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#classModal">
+            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#classModalCreate">
                 Klas toevoegen</a>
         </div>
         <table class="table">
@@ -23,7 +24,7 @@
                 <td>{{ class.name }}</td>
                 <td><a href="#" class="red" data-id="{{ class.id }}" id="btnDelete">Verwijderen</a></td>
                 <td><a href="#" class="blue" data-id="{{ class.id }}" id="btnEdit" data-toggle="modal" 
-                    data-target="#classModal">Wijzigen</a></td>
+                    data-target="#classModalUpdate">Wijzigen</a></td>
             </tr>
             {% endfor %}
             </tbody>

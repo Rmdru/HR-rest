@@ -19,18 +19,18 @@ class classController():
 
     @staticmethod
     def create_class():
-        name = request.form.get('name')
+        name = request.json.get('name')
 
+        existing_class = Class.query.filter((Class.name == name)).first()
+        if existing_class is not None:
+            return jsonify({'message': 'Error: Deze klas bestaat al.'})
+        
         new_class = Class(name=name)
-
-        if Class.query.filter((Class.name == name)).first() is not None:
-            flash("Error: Deze klas bestaat al.")
-            return redirect(url_for('students_index'))
 
         db.session.add(new_class)
         db.session.commit()
 
-        return redirect(url_for('classes_index'))
+        return jsonify({'message': 'success'})
 
     @staticmethod
     def update_class(id):
@@ -38,13 +38,17 @@ class classController():
         if not class_:
             return jsonify({'message': 'Class not found'}), 404
 
-        name = request.form.get('name')
+        name = request.json.get('name')
+
+        existing_class = Class.query.filter((Class.name == name)).first()
+        if existing_class is not None:
+            return jsonify({'message': 'Error: Deze klas bestaat al.'})        
 
         class_.name = name
 
         db.session.commit()
 
-        return redirect(url_for('classes_index'))
+        return jsonify({'message': 'success'})
 
     @staticmethod
     def delete_class(id):
