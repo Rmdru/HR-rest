@@ -151,7 +151,7 @@ export default class Student {
                             }
                             output += "</td>";
                             output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
-                            output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#studentModal">Wijzigen</a></td>`;
+                            output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#studentModalUpdate">Wijzigen</a></td>`;
                             output += `<td><a href="/students/${studentNumber}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
                             output += "</tr>";
                         }

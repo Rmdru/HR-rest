@@ -193,7 +193,7 @@ export default class Lesson {
                                 output += `<td><a href="/check-in/${id}" class="blue">QR-code</a></td>`;
                                 output += `<td><a href="/lessons/${id}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
                                 output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
-                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#lessonModal">Wijzigen</a></td>`;
+                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#lessonModalUpdate">Wijzigen</a></td>`;
                                 output += "</tr>";
                             }
                         }
