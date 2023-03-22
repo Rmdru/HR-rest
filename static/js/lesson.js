@@ -44,7 +44,7 @@ export default class Lesson {
                 // Add click event listener to each button
                 item.addEventListener("click", () => {
                     const rowId = item.getAttribute("data-id");
-                    console.log(rowId)
+                    
                     // Make a GET request to retrieve the data for the selected lesson
                     axios.get("/lessons/" + rowId).then((response) => {
                         const lesson = response.data.lesson;
@@ -62,6 +62,7 @@ export default class Lesson {
                             const dateInput = modal.querySelector("#inputDate");
                             const startTimeInput = modal.querySelector("#inputStartTime");
                             const endTimeInput = modal.querySelector("#inputEndTime");
+                            const selectClasses = modal.querySelector("#selectClasses");
 
                             // Set the value of the input elements to the values from the response data
                             nameInput.value = lesson.name;
@@ -69,6 +70,13 @@ export default class Lesson {
                             dateInput.value = lesson.date;
                             startTimeInput.value = lesson.start_time;
                             endTimeInput.value = lesson.end_time;
+                            lesson.classes.forEach((lesson) => {
+                                document.querySelectorAll("#selectClasses option").forEach((el) => {
+                                    if (lesson.id == el.value) {
+                                        el.setAttribute('selected', 'selected');
+                                    }
+                                })
+                            })
                         } else {
                             console.error("No data found in the response");
                         }
