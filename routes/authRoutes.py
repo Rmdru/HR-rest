@@ -105,7 +105,11 @@ def setup_auth_routes(app):
         else:
             login_user(user)
             session['user_id'] = user.id
-            session['user_role'] = 2
+            if user.role == 3:
+                session['user_role'] = 3
+            else:
+                session['user_role'] = 2
+
             return redirect(url_for('index'))
 
     # Get user id of current logged in user
