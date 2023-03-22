@@ -64,6 +64,13 @@ export default class Student {
                             nameInput.value = student.name;
                             emailInput.value = student.email;
                             studentNumberInput.value = student.student_number;
+                            student.classes.forEach((student) => {
+                                document.querySelectorAll("#selectClasses option").forEach((el) => {
+                                    if (student.id == el.value) {
+                                        el.setAttribute('selected', 'selected');
+                                    }
+                                })
+                            })
                             errorMessage.innerHTML = "";
                         } else {
                             console.error("No data found in the response");

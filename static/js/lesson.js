@@ -62,7 +62,6 @@ export default class Lesson {
                             const dateInput = modal.querySelector("#inputDate");
                             const startTimeInput = modal.querySelector("#inputStartTime");
                             const endTimeInput = modal.querySelector("#inputEndTime");
-                            const selectClasses = modal.querySelector("#selectClasses");
 
                             // Set the value of the input elements to the values from the response data
                             nameInput.value = lesson.name;
