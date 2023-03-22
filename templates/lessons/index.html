@@ -12,6 +12,7 @@
             <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModal">Les toevoegen</a>
             {% endif %}
         </div>
+        {% if session["user_role"] == 2 %}
         <div class="accordion mb-5" id="filterAccordion">
             <div class="card">
                 <div class="card-header" id="filterAccordionHeader">
@@ -43,6 +44,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% if session["user_role"] == 1 %}
         <table class="table">
             <thead style="background-color: black; color: #fff;">
