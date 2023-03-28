@@ -4,10 +4,11 @@ export default class Lesson {
         this.getLessonInfo();
         this.removeLessonInfo()
         this.initializeDatePicker();
+        this.createLesson();
+        this.updateLesson();
     }
 
     deleteFunction() {
-
         if (document.querySelector("#lessons") != null) {
             // select all elements with the id "btnDelete"
             const deleteBtns = document.querySelectorAll(".lessons #btnDelete")
@@ -16,7 +17,6 @@ export default class Lesson {
             deleteBtns.forEach((item) => {
                 // add click event listener to each delete button
                 item.addEventListener('click', (i) => {
-                    console.log('testjoidjsfo')
                     // retrieve the unique id of the row to be deleted
                     const rowId = item.getAttribute('data-id')
 
@@ -50,10 +50,10 @@ export default class Lesson {
                         // check if the data is present in the response
                         if (lesson) {
                             // Get the modal element
-                            const modal = document.getElementById("lessonModal");
+                            const modal = document.getElementById("lessonModalUpdate");
 
                             // Update the form action to include the ID
-                            document.querySelector("#lessonForm").action = `/lessons/${rowId}`;
+                            document.querySelector("#lessonModalUpdate #lessonForm").action = `/lessons/${rowId}`;
 
                             // Get the form input elements
                             const nameInput = modal.querySelector("#inputName");
@@ -61,6 +61,7 @@ export default class Lesson {
                             const dateInput = modal.querySelector("#inputDate");
                             const startTimeInput = modal.querySelector("#inputStartTime");
                             const endTimeInput = modal.querySelector("#inputEndTime");
+                            const errorMessage = modal.querySelector(".error");
 
                             // Set the value of the input elements to the values from the response data
                             nameInput.value = lesson.name;
@@ -68,6 +69,7 @@ export default class Lesson {
                             dateInput.value = lesson.date;
                             startTimeInput.value = lesson.start_time;
                             endTimeInput.value = lesson.end_time;
+                            errorMessage.innerHTML = "";
                         } else {
                             console.error("No data found in the response");
                         }
@@ -85,7 +87,7 @@ export default class Lesson {
             if (creatBtn != null) {
                 creatBtn.addEventListener('click', () => {
                     // Get the modal element
-                    const modal = document.getElementById("lessonModal");
+                    const modal = document.getElementById("lessonModalCreate");
 
                     // Get the form input elements
                     const nameInput = modal.querySelector("#inputName");
@@ -93,6 +95,7 @@ export default class Lesson {
                     const dateInput = modal.querySelector("#inputDate");
                     const startTimeInput = modal.querySelector("#inputStartTime");
                     const endTimeInput = modal.querySelector("#inputEndTime");
+                    const errorMessage = modal.querySelector(".error");
 
                     // Set the value of the input elements to the values from the response data
                     nameInput.value = '';
@@ -100,6 +103,7 @@ export default class Lesson {
                     dateInput.value = '';
                     startTimeInput.value = startTimeInput.options[0].value;
                     endTimeInput.value = endTimeInput.options[0].value;
+                    errorMessage.innerHTML = '';
                 })
             }
         }
@@ -114,14 +118,108 @@ export default class Lesson {
                     const picker = new Pikaday({
                         field: input,
                         format: 'DD/MM/YYYY',
-                        minDate: new Date(),
-                        onSelect: function () {
-                            console.log(input.value = this.toString());
-                        }
+                        minDate: new Date()
                     });
                 });
             }
         }
     }
+
+    createLesson() {
+        if (document.getElementById("lessonModalCreate") != null) {
+            const creatBtn = document.querySelector('#saveBtn');
+            creatBtn.addEventListener('click', () => {
+                // Get the modal element
+                const modal = document.getElementById("lessonModalCreate");
+
+                // Get the form input elements
+                const nameInput = modal.querySelector("#inputName").value;
+                const questionTextarea = modal.querySelector("#textareaQuestion").value;
+                const dateInput = modal.querySelector("#inputDate").value;
+                const startTimeInput = modal.querySelector("#inputStartTime").value;
+                const endTimeInput = modal.querySelector("#inputEndTime").value;
+
+                let error = 0;
+
+                if (nameInput == '') { 
+                    error++;
+                }
+
+                if (error == 0) {
+                    axios.post('/lessons/', {
+                        name: nameInput,
+                        question: questionTextarea,
+                        date: dateInput,
+                        start_time: startTimeInput,
+                        end_time: endTimeInput
+                    })
+                    .then((response) => {
+                        const result = response.data;
+                        if (result) {
+                            if (result.message == 'Error: Deze les bestaat al.') {
+                                let output = '<div class="alert alert-danger" role="alert">Error: Deze les bestaat al.</div>';
+                                document.querySelector('.error').innerHTML = output;
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    })
+                } else {
+                    let output = '<div class="alert alert-danger" role="alert">Error: Zorg dat je alle velden goed invult.</div>';
+                    document.querySelector('.error').innerHTML = output;
+                }
+            })
+        }
+    }
+
+    updateLesson() {
+        if (document.getElementById("lessonModalUpdate") != null) {
+            const creatBtn = document.querySelector('#lessonModalUpdate #saveBtn');
+            creatBtn.addEventListener('click', () => {
+                // Get the modal element
+                const modal = document.getElementById("lessonModalUpdate");
+               
+                // Get the form element
+                const lessonForm = document.querySelector("#lessonModalUpdate #lessonForm");
+
+                // Get the ID from the form action attribute
+                const rowId = lessonForm.getAttribute("action").split("/")[2];
+   
+                // Get the form input elements
+                const nameInput = modal.querySelector("#inputName").value;
+                const questionTextarea = modal.querySelector("#textareaQuestion").value;
+                const dateInput = modal.querySelector("#inputDate").value;
+                const startTimeInput = modal.querySelector("#inputStartTime").value;
+                const endTimeInput = modal.querySelector("#inputEndTime").value;
+                
+                let error = 0;
+
+                if (nameInput == '') { 
+                    error++;
+                }
+
+                if (error == 0) {
+                    axios.post('/lessons/' + rowId, {
+                        name: nameInput
+                    })
+                    .then((response) => {
+                        const result = response.data;
+                        if (result) {
+                            if (result.message == 'Error: Deze les bestaat al.') {
+                                let output = '<div class="alert alert-danger" role="alert">Error: Deze les bestaat al.</div>';
+                                document.querySelector('#lessonModalUpdate .error').innerHTML = output;
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    })
+                } else {
+                    let output = '<div class="alert alert-danger" role="alert">Error: Zorg dat je alle velden goed invult.</div>';
+                    document.querySelector('.error').innerHTML = output;
+                }
+            })
+        }
+    }
 }
+
 

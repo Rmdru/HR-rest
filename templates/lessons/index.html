@@ -1,12 +1,13 @@
 {% include "layout.html" %}
-{% include "/lessons/lesson_model.html" %}
+{% include "/lessons/modals/lesson_model_create.html" %}
+{% include "/lessons/modals/lesson_modal_update.html" %}
 {% block content %}
 {% include "navigation.html" %}
 <div class="lessons container">
     <div class="index" id="lessons">
         <div class="top-content">
             <h1>Lessen</h1>
-            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModal">Les toevoegen</a>
+            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModalCreate">Les toevoegen</a>
         </div>
         <table class="table">
             <thead style="background-color: black; color: #fff;">
@@ -34,7 +35,7 @@
                 <td><a href="/lesson/{{ lesson.id }}/aanwezigheid">Aanwezigheid</a></td>
                 <td><a href="#" class="red" data-id="{{ lesson.id }}" id="btnDelete">Verwijderen</a></td>
                 <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal"
-                       data-target="#lessonModal">Wijzigen</a></td>
+                       data-target="#lessonModalUpdate">Wijzigen</a></td>
             </tr>
             {% endfor %}
             </tbody>

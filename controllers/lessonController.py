@@ -20,22 +20,22 @@ class LessonController():
     @staticmethod
     def create_lesson():
         lesson_id = str(uuid.uuid4())
-        name = request.form.get('name')
-        question = request.form.get('question')
-        date = request.form.get('date')
-        start_time = request.form.get('start_time')
-        end_time = request.form.get('end_time')
+        name = request.json.get('name')
+        question = request.json.get('question')
+        date = request.json.get('date')
+        start_time = request.json.get('start_time')
+        end_time = request.json.get('end_time')
+
+        existing_lesson = Lesson.query.filter((Lesson.name == name)).first()
+        if existing_lesson is not None:
+            return jsonify({'message': 'Error: Deze les bestaat al.'})
 
         new_lesson = Lesson(id=lesson_id, name=name, question=question, date=date, start_time=start_time, end_time=end_time)
-
-        if Lesson.query.filter((Lesson.name == name)).first() is not None:
-            flash("Error: Deze les bestaat al.")
-            return redirect(url_for('lessons_index'))
 
         db.session.add(new_lesson)
         db.session.commit()
 
-        return redirect(url_for('lessons_index'))
+        return jsonify({'message': 'success'})
 
     @staticmethod
     def update_lesson(id):
@@ -43,12 +43,15 @@ class LessonController():
         if not lesson:
             return jsonify({'message': 'Lesson not found'}), 404
 
-        print(request.form.get('question'), lesson.question)
-        name = request.form.get('name')
-        question = request.form.get('question')
-        date = request.form.get('date')
-        start_time = request.form.get('start_time')
-        end_time = request.form.get('end_time')
+        name = request.json.get('name')
+        question = request.json.get('question')
+        date = request.json.get('date')
+        start_time = request.json.get('start_time')
+        end_time = request.json.get('end_time')
+
+        existing_lesson = Lesson.query.filter((Lesson.name == name) | (Lesson.question == question) | (Lesson.date == date) | (Lesson.start_time == start_time) | (Lesson.end_time == end_time)).first()
+        if existing_lesson is not None:
+            return jsonify({'message': 'Error: Deze les bestaat al.'}) 
 
         lesson.name = name
         lesson.question = question
@@ -58,7 +61,7 @@ class LessonController():
 
         db.session.commit()
 
-        return redirect(url_for('lessons_index'))
+        return jsonify({'message': 'success'})
 
     @staticmethod
     def delete_lesson(id):
