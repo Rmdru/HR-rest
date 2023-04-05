@@ -6,7 +6,7 @@ class TeacherController():
 
     @staticmethod
     def get_all_teachers():
-        teachers = User.query.filter_by(role=0)
+        teachers = User.query.filter_by(role=2)
         teachers_dict = [teacher.to_dict() for teacher in teachers]
         return teachers_dict
 
