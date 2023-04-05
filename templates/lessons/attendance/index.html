@@ -10,7 +10,11 @@
             <h1>Aanwezigheid</h1>
             <a href="/lessen_overzicht" class="button">Naar lessen</a>
         </div>
-        <h2 class="mt-5 mb-3">Aanwezig</h2>
+        <div class="d-flex justify-content-between align-items-center top mt-5 mb-3">
+            <h2>Aanwezig</h2>
+            <p id="attended-count">Aantal aanwezig: {{ attended_students|length }}</p>
+
+        </div>
         <table class="table text-success">
             <thead style="background-color: black; color: #fff;">
             <tr>
@@ -28,7 +32,8 @@
                 <td>{{ attended_student.checkin_time.strftime('%H:%M:%S') }}</td>
                 <td>{{ attended_student.mood }}</td>
                 <td>{{ attended_student.question_answer }}</td>
-                <td><a href="" data-id="{{ attended_student.id }}" class="red showDeleteRowModal" data-toggle="modal" data-target="#deleteRowConfirmation">Verwijderen</a></td>
+                <td><a href="" data-id="{{ attended_student.id }}" class="red showDeleteRowModal" data-toggle="modal"
+                       data-target="#deleteRowConfirmation">Verwijderen</a></td>
             </tr>
             {% endfor %}
             </tbody>

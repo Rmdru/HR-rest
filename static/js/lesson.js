@@ -44,7 +44,7 @@ export default class Lesson {
                 // Add click event listener to each button
                 item.addEventListener("click", () => {
                     const rowId = item.getAttribute("data-id");
-                    console.log(rowId)
+                    
                     // Make a GET request to retrieve the data for the selected lesson
                     axios.get("/lessons/" + rowId).then((response) => {
                         const lesson = response.data.lesson;
@@ -69,6 +69,13 @@ export default class Lesson {
                             dateInput.value = lesson.date;
                             startTimeInput.value = lesson.start_time;
                             endTimeInput.value = lesson.end_time;
+                            lesson.classes.forEach((lesson) => {
+                                document.querySelectorAll("#selectClasses option").forEach((el) => {
+                                    if (lesson.id == el.value) {
+                                        el.setAttribute('selected', 'selected');
+                                    }
+                                })
+                            })
                         } else {
                             console.error("No data found in the response");
                         }
@@ -186,7 +193,7 @@ export default class Lesson {
                                 output += `<td><a href="/check-in/${id}" class="blue">QR-code</a></td>`;
                                 output += `<td><a href="/lessons/${id}/aanwezigheid" class="blue">Aanwezigheid</a></td>`;
                                 output += `<td><a href="#" class="red" data-id="${id}" id="btnDelete">Verwijderen</a></td>`;
-                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#lessonModal">Wijzigen</a></td>`;
+                                output += `<td><a href="#" class="blue" data-id="${id}" id="btnEdit" data-toggle="modal" data-target="#lessonModalUpdate">Wijzigen</a></td>`;
                                 output += "</tr>";
                             }
                         }

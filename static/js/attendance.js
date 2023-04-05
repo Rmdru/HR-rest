@@ -55,6 +55,14 @@ export default class Attendance {
         }
     }
 
+    countStudents() {
+        // Update the count of attended students
+        let attendedCountEl = document.getElementById('attended-count');
+        let attendedCountText = attendedCountEl.innerText;
+        let attendedCount = parseInt(attendedCountText.replace('Aantal aanwezig: ', '')) + 1;
+        attendedCountEl.innerText = `Aantal aanwezig: ${attendedCount}`;
+    }
+
     getAttendance() {
         if (document.querySelector("#attendance") != null) {
             var socket = io.connect();
@@ -62,6 +70,7 @@ export default class Attendance {
             var absentRows = document.querySelectorAll(".absent-table tbody tr");
 
             socket.on('attendance', function (data) {
+                this.countStudents();
                 if (data.uuid === uuid) {
                     console.log(data)
                     const table = document.querySelector(".table tbody");
@@ -84,7 +93,7 @@ export default class Attendance {
                         }
                     });
                 }
-            });
+            }.bind(this));
         }
     }
 }

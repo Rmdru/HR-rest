@@ -4,7 +4,7 @@
             <img src="/static/assets/ra_logo.png" alt="RAC logo"/>
         </a>
         <div class="links">
-            {% if session["user_role"] == 2 %}
+            {% if session["user_role"] != 1 %}
             <a href="/index">Home</a>
             <a href="/studenten_overzicht">Studenten</a>
             {% if session["user_role"] == 3 %}

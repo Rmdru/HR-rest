@@ -3,7 +3,9 @@ from __main__ import app, render_template, request, \
     generate_password_hash, check_password_hash, login_user, logout_user, LoginManager, login_required, db, session, \
     jsonify
 from models.userModel import User
+from models.lessonModel import Lesson
 from models.studentModel import Student
+from models.studentClassModel import StudentClass
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -55,7 +57,6 @@ def setup_auth_routes(app):
 
         else:
             student = Student.query.filter_by(student_number=studentnr).first()
-            print(studentnr)
             if not student:
                 flash('Studentnummer niet gevonden')
                 return redirect(url_for('signup'))
@@ -82,12 +83,33 @@ def setup_auth_routes(app):
                 login_user(student)
                 session['user_id'] = student.id
                 session['user_role'] = 1
+
+                # retrieve the logged in student's associated lessons
+                class_lessons = []
+                for student_class in student.classes:
+                    for lesson_class in student_class.classes.lessons:
+                        lessons = Lesson.query.filter_by(id=lesson_class.lesson_id).all()
+                        for lesson in lessons:
+                            if lesson:
+                                class_lessons.append({
+                                    'id': lesson.id,
+                                    'name': lesson.name,
+                                    'date': lesson.date,
+                                    'start_time': lesson.start_time,
+                                    'end_time': lesson.end_time
+                                })
+
+                session['class_lessons'] = class_lessons
                 return redirect(url_for('lessons_index'))
 
         else:
             login_user(user)
             session['user_id'] = user.id
-            session['user_role'] = 2
+            if user.role == 3:
+                session['user_role'] = 3
+            else:
+                session['user_role'] = 2
+
             return redirect(url_for('index'))
 
     # Get user id of current logged in user

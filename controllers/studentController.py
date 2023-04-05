@@ -23,16 +23,16 @@ class StudentController():
         name = request.json.get('name')
         email = request.json.get('email')
         student_number = request.json.get('student_number')
-
         existing_student = Student.query.filter((Student.student_number == student_number) | (Student.email == email)).first()
         if existing_student is not None:
             return jsonify({'message': 'Error: Dit studentnummer of email bestaat al.'})
 
+        # Get a list of the selected class IDs from the form data
+        selected_classes = request.json.get('selected_classes')
+
         new_student = Student(name=name, email=email, student_number=student_number)
         db.session.add(new_student)
         db.session.commit()
-
-        return jsonify({'message': 'success'})
 
         # Create StudentClass objects for the selected classes and add them to the pivot table
         for class_id in selected_classes:
@@ -53,13 +53,13 @@ class StudentController():
         name = request.json.get('name')
         email = request.json.get('email')
         student_number = request.json.get('student_number')
-
-        existing_student = Student.query.filter((Student.student_number == student_number) | (Student.email == email)).filter(Student.id != id).first()
+        existing_student = Student.query.filter(
+            (Student.student_number == student_number) | (Student.email == email)).filter(Student.id != id).first()
         if existing_student is not None:
             return jsonify({'message': 'Error: Dit studentnummer of email bestaat al.'})
 
         # Get a list of the selected class IDs from the form data
-        selected_classes = request.form.getlist('classes')
+        selected_classes = request.json.get('selected_classes')
 
         # Update the student's name, email, and student number
         student.name = name
@@ -67,7 +67,9 @@ class StudentController():
         student.student_number = student_number
 
         # Remove any existing StudentClass objects for this student
-        student.student_classes = []
+        student.classes = []
+
+        db.session.commit()
 
         # Create StudentClass objects for the selected classes and add them to the pivot table
         for class_id in selected_classes:
@@ -78,7 +80,7 @@ class StudentController():
         db.session.commit()
 
         return jsonify({'message': 'success'})
-    
+
     @staticmethod
     def delete_student(id):
         student = Student.query.get(id)
