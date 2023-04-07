@@ -171,3 +171,19 @@
 .material-icons {
     vertical-align: middle;
 }
+
+tr.absent {
+    position: relative;
+}
+
+tr.absent::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: black;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(-50%);
+}

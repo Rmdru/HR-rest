@@ -3,6 +3,7 @@ export default class Attendance {
         this.deleteFunction();
         this.insertAttendance();
         this.getAttendance();
+        this.signOut();
     }
 
     deleteFunction() {
@@ -94,6 +95,38 @@ export default class Attendance {
                     });
                 }
             }.bind(this));
+        }
+    }
+
+    signOut() {
+        if (document.querySelector("#signoutBtn")) {
+            const btnCommitSignout = document.querySelector("#btnCommitSignout");
+            const signoutBtns = document.querySelectorAll("#signoutBtn");
+            let lessonId = null;
+            let studentId = null;
+            let status = null;
+            signoutBtns.forEach((item) => {
+                item.addEventListener('click', (i) => {
+                    lessonId = item.getAttribute('data-lesson-id');
+                    studentId = item.getAttribute('data-student-id');
+                })
+            })
+            btnCommitSignout.addEventListener('click', (i) => {
+                const statusSelect = document.querySelector('select[name="status"]');
+                status = statusSelect.value;
+                i.preventDefault();
+                const signoutData = {
+                    lesson_id: lessonId,
+                    student_id: studentId,
+                    status: status
+                };
+                axios.post('/signout', signoutData).then((response) => {
+                    console.log(response)
+                    location.reload();
+                }, (error) => {
+                    console.log(error);
+                });
+            });
         }
     }
 }

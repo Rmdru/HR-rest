@@ -11,6 +11,11 @@ qrcode = QRcode(app)
 
 
 def setup_qr_routes(app):
+
+    @app.route("/signout", methods=['POST'])
+    def commitSignOut():
+        return AttendanceController.signout()
+
     @app.route("/check-in/<id>")
     def checkIn(id):
         return render_template("lessons/checkin/qrcode.html", id=id)

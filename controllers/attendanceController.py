@@ -35,3 +35,21 @@ class AttendanceController():
         db.session.delete(attendance)
         db.session.commit()
         return '', 204
+    
+    @staticmethod
+    def signout():
+        data = request.get_json()
+        lesson_id = data['lesson_id']
+        student_id = data['student_id']
+        status = data['status']
+
+        # check if there is an existing attendance record for the lesson and student
+        attendance = Attendance.query.filter_by(lesson_id=lesson_id, student_id=student_id).first()
+        if attendance:
+            attendance.status = status  # update the existing record
+        else:
+            attendance = Attendance(lesson_id=lesson_id, student_id=student_id, status=status)  # create a new record
+            db.session.add(attendance)
+
+        db.session.commit()
+        return 'OK'

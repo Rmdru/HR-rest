@@ -1,5 +1,6 @@
 {% include "layout.html" %}
 {% include "/lessons/lesson_model.html" %}
+{% include "/lessons/signout_modal.html" %}
 {% block content %}
 {% include "navigation.html" %}
 <div class="lessons container">
@@ -53,15 +54,18 @@
                 <th scope="Date">Datum</th>
                 <th scope="Starttime">Begintijd</th>
                 <th scope="Endtime">Eindtijd</th>
+                <th scope="Signout">Afmelden</th>
             </tr>
             </thead>
             <tbody>
             {% for lesson in class_lessons %}
-            <tr>
+            <tr {% if lesson.absent %}class="absent" {% endif %}>
                 <td>{{ lesson.name }}</td>
                 <td>{{ lesson.date }}</td>
                 <td>{{ lesson.start_time }}</td>
                 <td>{{ lesson.end_time }}</td>
+                <td><a id="signoutBtn" data-toggle="modal" data-target="#signoutModal" data-lesson-id="{{ lesson.id }}"
+                       data-student-id="{{ session["user_id"] }}" href="#">Afmelden</a></td>
             </tr>
             {% endfor %}
             </tbody>
