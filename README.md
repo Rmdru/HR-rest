@@ -44,7 +44,7 @@ De code is geschreven in Python 3.11.1
 
 Er kan als docent ingelogd worden met de volgende inloggegevens: 
 ```
-Gebruikersnaam: testdocent@gmail.com 
+Gebruikersnaam: docent@email.com 
 Wachtwoord: test
 ```
 Er kan als beheerder ingelogd worden met de volgende inloggegevens:
@@ -52,6 +52,16 @@ Er kan als beheerder ingelogd worden met de volgende inloggegevens:
 Gebruikersnaam: admin@email.com 
 Wachtwoord: test
 ```
+Er kan als student ingelogd worden met de volgende inloggegevens:
+```
+Gebruikersnaam: sclark@example.net 
+Wachtwoord: test
+```
+
+## Hoe een nieuw account aan te maken?
+
+De webapplicatie omvat een signup pagina waarop 
+docenten en studenten een nieuw account kunnen aanmaken.
 
 ## Structuur
 
